@@ -9,8 +9,16 @@
     android:paddingTop="0dp"
     android:paddingRight="0dp"
     android:paddingBottom="20dp"
-    android:background="@color/principal">
+    android:background="@color/principal"
+    tools:context=".LoginActivity">
 
+    <!-- Load the toolbar here -->
+    <include
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- Rest of content for the activity -->
 
     <ImageView
         android:id="@+id/imageView"
@@ -30,10 +38,9 @@
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_gravity="start"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="364dp"
-        android:enabled="false"
         android:backgroundTint="@color/Login"
+        android:enabled="true"
         android:text="@string/iniciar_sesi_n"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +55,7 @@
         android:layout_gravity="start"
         android:layout_marginBottom="288dp"
         android:backgroundTint="@color/CreateAccount"
-        android:enabled="false"
+        android:enabled="true"
         android:text="@string/crear_cuenta"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,7 +98,7 @@
         android:layout_gravity="start"
         android:layout_marginBottom="152dp"
         android:backgroundTint="@color/FacebookButton"
-        android:enabled="false"
+        android:enabled="true"
         android:text="@string/facebook"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +113,7 @@
         android:layout_gravity="start"
         android:layout_marginBottom="80dp"
         android:backgroundTint="@color/GoogleButton"
-        android:enabled="false"
+        android:enabled="true"
         android:text="@string/google"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -138,6 +145,5 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="589dp"
         android:contentDescription="@string/google" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

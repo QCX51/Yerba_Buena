@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="">
+        <menu>
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/inicio"
+            android:checkable="true"
+            android:enabled="true"
+            android:icon="@drawable/menu_icon"
+            android:title="Inicio"
+            android:visible="true" />
+
+        <item
+            android:id="@+id/menu"
+            android:checkable="true"
+            android:icon="@drawable/menu_icon"
+            android:title="Menú" />
+
+        <item
+            android:id="@+id/promociones"
+            android:checkable="true"
+            android:icon="@drawable/menu_icon"
+            android:title="Promociónes" />
+
+        <item
+            android:id="@+id/pedidos"
+            android:checkable="true"
+            android:icon="@drawable/menu_icon"
+            android:title="Pedidos" />
+
+        <item
+            android:id="@+id/notificaciones"
+            android:icon="@drawable/menu_icon"
+            android:title="Notificaciónes" />
+
+    </group>
+        </menu>
+    </item>
+    <group>
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/cerrarsesion"
+                    android:icon="@drawable/menu_icon"
+                    android:title="Cerrar Sesión" />
+            </group>
+        </menu>
+    </item>
+    </group>
+</menu>
