@@ -54,9 +54,9 @@ class MainActivity : AppCompatActivity() {
     }
     private fun selectDrawerItem(it:MenuItem)
     {
+        title = it.title
         when (it.itemId) {
             R.id.inicio -> {
-                title = it.title
                 val fragment = MapsFragment.newInstance("maps", "")
                 supportFragmentManager
                     .beginTransaction()
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
                 onBackPressed()
             }
             R.id.menu -> {
-                title = it.title
                 val fragment = fragment_menu.newInstance("menu", "")
                 supportFragmentManager
                     .beginTransaction()
@@ -74,19 +73,15 @@ class MainActivity : AppCompatActivity() {
                 onBackPressed()
             }
             R.id.promociones -> {
-                title = it.title
                 onBackPressed()
             }
             R.id.pedidos -> {
-                title = it.title
                 onBackPressed()
             }
             R.id.notificaciones -> {
-                title = it.title
                 onBackPressed()
             }
             R.id.cerrarsesion -> {
-                title = it.title
                 onBackPressed()
             }
         }
