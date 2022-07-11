@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="0dp"
+    android:paddingTop="0dp"
+    android:paddingRight="0dp"
+    android:paddingBottom="20dp"
+    android:background="@color/principal">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="348dp"
+        android:layout_height="191dp"
+        android:layout_marginStart="30dp"
+        android:background="@color/principal"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp"
+        android:contentDescription="@string/todo" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="364dp"
+        android:enabled="false"
+        android:backgroundTint="@color/Login"
+        android:text="@string/iniciar_sesi_n"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/Create_Account"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="288dp"
+        android:backgroundTint="@color/CreateAccount"
+        android:enabled="false"
+        android:text="@string/crear_cuenta"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="0.5dp"
+        android:background="@android:color/white"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="450dp" />
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="0.5dp"
+        android:background="@android:color/white"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="450dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/separator"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:text="@string/o"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="439dp" />
+
+    <Button
+        android:id="@+id/Google"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="152dp"
+        android:backgroundTint="@color/FacebookButton"
+        android:enabled="false"
+        android:text="@string/facebook"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Facebook"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="@color/GoogleButton"
+        android:enabled="false"
+        android:text="@string/google"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/LogoView"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="100dp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ogoacebook"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="517dp"
+        android:contentDescription="@string/facebook" />
+
+    <ImageView
+        android:id="@+id/LogoGoogle"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="100dp"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ogooogle"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="589dp"
+        android:contentDescription="@string/google" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

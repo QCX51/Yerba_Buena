@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">YerbaBuena</string>
+    <string name="todo">TODO</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">GOOGLE</string>
+    <string name="iniciar_sesi_n">Iniciar Sesión</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="o">O</string>
+</resources>
