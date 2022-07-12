@@ -8,5 +8,6 @@
     <string name="o">O</string>
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Closed</string>
-    <string name="web_client_id">864446602626-qia2jmifp8gnt38lmh7ousap47bb588f.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
