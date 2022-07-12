@@ -1,7 +1,6 @@
 package com.example.yerbabuena
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -24,38 +23,39 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
 
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        val menuItem = navigationView.getMenu().getItem(0);
-        menuItem.setChecked(true);
+        val menuItem = navigationView.menu.getItem(0);
+        menuItem.isChecked = true;
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.inicio -> {
-                    setTitle("Inicio")
+
+                    title = "Inicio"
                     onBackPressed()
                     true
                 }
                 R.id.menu -> {
-                    setTitle("Menu")
+                    title = "Menu"
                     onBackPressed()
                     true
                 }
                 R.id.promociones -> {
-                    setTitle("Promociones")
+                    title = "Promociones"
                     onBackPressed()
                     true
                 }
                 R.id.pedidos -> {
-                    setTitle("Pedidos")
+                    title = "Pedidos"
                     onBackPressed()
                     true
                 }
                 R.id.notificaciones -> {
-                    setTitle("Notificaciones")
+                    title = "Notificaciones"
                     onBackPressed()
                     true
                 }
                 R.id.cerrarsesion -> {
-                    setTitle("Salir")
+                    title = "Salir"
                     onBackPressed()
                     true
                 }
@@ -80,10 +80,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val layoutf = drawerLayout as DrawerLayout?
-        if (layoutf != null) {
-            if (layoutf.isDrawerOpen(GravityCompat.START)) {
-                layoutf.closeDrawer(GravityCompat.START)
+        val layouts = drawerLayout as DrawerLayout?
+        if (layouts != null) {
+            if (layouts.isDrawerOpen(GravityCompat.START)) {
+                layouts.closeDrawer(GravityCompat.START)
             } else {
                 super.onBackPressed()
             }
