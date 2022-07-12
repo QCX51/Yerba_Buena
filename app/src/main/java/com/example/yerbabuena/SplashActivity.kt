@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
         var currentUser = auth.currentUser
         if (currentUser == null)
         {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
         else
         {
