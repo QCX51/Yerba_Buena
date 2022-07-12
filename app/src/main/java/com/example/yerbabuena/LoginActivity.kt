@@ -77,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 // account.email.toString()
                 // account.displayName.toString()
-                Toast.makeText(this, account.email.toString(), Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Registrado" + account.email.toString(), Toast.LENGTH_LONG)
                 finish()
             }
         }
