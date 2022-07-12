@@ -78,6 +78,8 @@ class LoginActivity : AppCompatActivity() {
                 // account.email.toString()
                 // account.displayName.toString()
                 Toast.makeText(this, "Registrado" + account.email.toString(), Toast.LENGTH_LONG)
+                val intent:Intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
                 finish()
             }
         }
