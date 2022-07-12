@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         auth = FirebaseAuth.getInstance()
 
-        val fButton = findViewById<Button>(R.id.Google)
+        val fButton = findViewById<Button>(R.id.Facebook)
         val gButton = findViewById<Button>(R.id.Google)
 
         var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
