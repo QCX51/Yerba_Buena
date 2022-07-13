@@ -5,12 +5,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="0dp"
-    android:paddingTop="0dp"
-    android:paddingRight="0dp"
+    android:paddingEnd="0dp"
     android:paddingBottom="20dp"
     android:background="@color/principal"
-    tools:context=".LoginActivity">
+    tools:context="LoginActivity"
+    tools:ignore="RtlSymmetry">
 
     <!-- Load the toolbar here -->
     <include
@@ -63,31 +62,40 @@
 
     <View
         android:layout_width="150dp"
-        android:layout_height="0.5dp"
+        android:layout_height="0.60dp"
+        android:layout_marginBottom="260dp"
         android:background="@android:color/white"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="450dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <View
         android:layout_width="150dp"
-        android:layout_height="0.5dp"
+        android:layout_height="0.60dp"
+        android:layout_marginBottom="260dp"
         android:background="@android:color/white"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="450dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/separator"
         android:layout_width="40dp"
         android:layout_height="30dp"
+        android:layout_marginBottom="240dp"
         android:text="@string/o"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="15sp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="185dp"
-        tools:layout_editor_absoluteY="439dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/Facebook"
@@ -101,7 +109,6 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -124,24 +131,29 @@
         android:id="@+id/LogoView"
         android:layout_width="21dp"
         android:layout_height="23dp"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="parent"
+        android:layout_gravity="start"
+        android:layout_marginEnd="288dp"
+        android:layout_marginBottom="172dp"
+        android:contentDescription="@string/facebook"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ogoacebook"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="517dp"
-        android:contentDescription="@string/facebook" />
+         />
 
     <ImageView
         android:id="@+id/LogoGoogle"
         android:layout_width="21dp"
         android:layout_height="23dp"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="parent"
+        android:layout_gravity="start"
+        android:layout_marginBottom="100dp"
+        android:contentDescription="@string/google"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.256"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ogooogle"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="589dp"
-        android:contentDescription="@string/google" />
+        app:srcCompat="@drawable/ogoacebook"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
