@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         lateinit var homeFragment: HomeFragment
-        lateinit var mainFragment: MainFragment
+        lateinit var menuFragment: MenuFragment
         lateinit var pedidosFragment: PedidosFragment
         lateinit var promocionesFragment: PromocionesFragment
         lateinit var notificacionesFragment: NotificacionesFragment
@@ -55,10 +55,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu -> {
                     title = it.title
-                    mainFragment=MainFragment()
+                    menuFragment= MenuFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.home_content, mainFragment )
+                        .replace(R.id.home_content, menuFragment )
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                     onBackPressed()

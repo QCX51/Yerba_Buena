@@ -45,9 +45,14 @@ class LoginActivity : AppCompatActivity() {
         var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 // There are no request codes
+                Toast.makeText(this, "ok ${result.toString()}", Toast.LENGTH_SHORT)
                 val data: Intent? = result.data
                 val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
                 handleResult(task)
+            }
+            else
+            {
+                Toast.makeText(this, "fail ${result.toString()}", Toast.LENGTH_SHORT)
             }
         }
 
