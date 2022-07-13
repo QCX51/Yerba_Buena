@@ -98,6 +98,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
+        android:drawableStart="@drawable/ic_logofacebook_"
         android:id="@+id/Facebook"
         android:layout_width="260dp"
         android:layout_height="60dp"
