@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         super.onStart()
         if (Firebase.auth.currentUser == null)
         {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, SplashActivity::class.java))
         }
         else
         {
