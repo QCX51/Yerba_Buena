@@ -12,7 +12,7 @@
         <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
         <item name="android:textColorPrimary">@android:color/white</item>
         <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
-        <item name="actionMenuTextColor">@android:color/holo_green_light</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>

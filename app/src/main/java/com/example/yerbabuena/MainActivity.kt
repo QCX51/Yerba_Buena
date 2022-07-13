@@ -13,7 +13,7 @@ import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout: View
+    private lateinit var drawerLayout:DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +28,24 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar);
         setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
-
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        val menuItem = navigationView.menu.getItem(0);
-        menuItem.isChecked = true;
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        toggle.syncState()
+
+        homeFragment = HomeFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.home_content, homeFragment )
+            .commit()
+        navigationView.setCheckedItem(R.id.inicio)
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.inicio -> {
-
-                    title="Inicio"
-                    homeFragment =HomeFragment()
+                    title = it.title
+                    homeFragment = HomeFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.home_content, homeFragment )
@@ -47,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.menu -> {
-                    title="Menú"
+                    title = it.title
                     mainFragment=MainFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -58,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.promociones -> {
-                    title="Promociones"
+                    title = it.title
                     promocionesFragment =PromocionesFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -69,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.pedidos -> {
-                    title="Pedidos"
+                    title = it.title
                     pedidosFragment =PedidosFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -80,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.notificaciones -> {
-                    title="Notificaciones"
+                    title = it.title
                     notificacionesFragment =NotificacionesFragment()
                     supportFragmentManager
                         .beginTransaction()
@@ -91,24 +98,13 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.cerrarsesion -> {
-                    title = "Cerrar Sesión"
+                    title = it.title
                     onBackPressed()
                     true
                 }
                 else -> false
             }
         }
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val toggle = ActionBarDrawerToggle(this,
-            drawerLayout as DrawerLayout?, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
-
-    /*val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = CustomAdapter()
-
-        recyclerView.layoutManager = LinearLayoutManager (this)
-        recyclerView.adapter = adapter*/
     }
 
     override fun onStart() {
@@ -116,13 +112,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val layoubs = drawerLayout as DrawerLayout?
-        if (layoubs != null) {
-            if (layoubs.isDrawerOpen(GravityCompat.START)) {
-                layoubs.closeDrawer(GravityCompat.START)
-            } else {
-                super.onBackPressed()
-            }
+        when (drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            true -> { drawerLayout.closeDrawer(GravityCompat.START)}
+            false -> { super.onBackPressed() }
         }
     }
 }
