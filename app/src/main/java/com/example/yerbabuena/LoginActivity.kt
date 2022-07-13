@@ -21,7 +21,7 @@ import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,8 +77,8 @@ class LoginActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 // account.email.toString()
                 // account.displayName.toString()
-                Toast.makeText(this, "Registrado" + account.email.toString(), Toast.LENGTH_LONG)
-                val intent:Intent = Intent(this, MainActivity::class.java)
+                Toast.makeText(this, "Registrado" + account.email.toString(), Toast.LENGTH_LONG).show()
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

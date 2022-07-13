@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 
 
@@ -19,6 +20,12 @@ class MainActivity : AppCompatActivity() {
         this.supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
+        lateinit var homeFragment: HomeFragment
+        lateinit var mainFragment: MainFragment
+        lateinit var pedidosFragment: PedidosFragment
+        lateinit var promocionesFragment: PromocionesFragment
+        lateinit var notificacionesFragment: NotificacionesFragment
+
         val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar);
         setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
 
@@ -30,32 +37,61 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.inicio -> {
 
-                    title = "Inicio"
+                    title="Inicio"
+                    homeFragment =HomeFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_content, homeFragment )
+                        .commit()
                     onBackPressed()
                     true
                 }
                 R.id.menu -> {
-                    title = "Menu"
+                    title="Menú"
+                    mainFragment=MainFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_content, mainFragment )
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                     onBackPressed()
                     true
                 }
                 R.id.promociones -> {
-                    title = "Promociones"
+                    title="Promociones"
+                    promocionesFragment =PromocionesFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_content, promocionesFragment )
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                     onBackPressed()
                     true
                 }
                 R.id.pedidos -> {
-                    title = "Pedidos"
+                    title="Pedidos"
+                    pedidosFragment =PedidosFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_content, pedidosFragment )
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                     onBackPressed()
                     true
                 }
                 R.id.notificaciones -> {
-                    title = "Notificaciones"
+                    title="Notificaciones"
+                    notificacionesFragment =NotificacionesFragment()
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_content, notificacionesFragment )
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
                     onBackPressed()
                     true
                 }
                 R.id.cerrarsesion -> {
-                    title = "Salir"
+                    title = "Cerrar Sesión"
                     onBackPressed()
                     true
                 }
@@ -80,10 +116,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val layouts = drawerLayout as DrawerLayout?
-        if (layouts != null) {
-            if (layouts.isDrawerOpen(GravityCompat.START)) {
-                layouts.closeDrawer(GravityCompat.START)
+        val layoubs = drawerLayout as DrawerLayout?
+        if (layoubs != null) {
+            if (layoubs.isDrawerOpen(GravityCompat.START)) {
+                layoubs.closeDrawer(GravityCompat.START)
             } else {
                 super.onBackPressed()
             }

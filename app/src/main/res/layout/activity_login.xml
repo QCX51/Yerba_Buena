@@ -5,11 +5,12 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingEnd="0dp"
+    android:paddingLeft="0dp"
+    android:paddingTop="0dp"
+    android:paddingRight="0dp"
     android:paddingBottom="20dp"
     android:background="@color/principal"
-    tools:context="LoginActivity"
-    tools:ignore="RtlSymmetry">
+    tools:context=".LoginActivity">
 
     <!-- Load the toolbar here -->
     <include
@@ -67,7 +68,7 @@
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintHorizontal_bias="0.938"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -78,7 +79,7 @@
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.938"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -98,7 +99,6 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:drawableStart="@drawable/ic_logofacebook_"
         android:id="@+id/Facebook"
         android:layout_width="260dp"
         android:layout_height="60dp"
@@ -110,6 +110,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -132,29 +133,24 @@
         android:id="@+id/LogoView"
         android:layout_width="21dp"
         android:layout_height="23dp"
-        android:layout_gravity="start"
-        android:layout_marginEnd="288dp"
-        android:layout_marginBottom="172dp"
-        android:contentDescription="@string/facebook"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginStart="100dp"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ogoacebook"
-         />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="517dp"
+        android:contentDescription="@string/facebook" />
 
     <ImageView
         android:id="@+id/LogoGoogle"
         android:layout_width="21dp"
         android:layout_height="23dp"
-        android:layout_gravity="start"
-        android:layout_marginBottom="100dp"
-        android:contentDescription="@string/google"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.256"
+        android:layout_marginStart="100dp"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ogoacebook"
-        tools:ignore="MissingConstraints" />
+        app:srcCompat="@drawable/ogooogle"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="589dp"
+        android:contentDescription="@string/google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
