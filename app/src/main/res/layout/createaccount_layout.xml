@@ -21,17 +21,19 @@
         android:id="@+id/ButtonLogin"
         android:layout_width="136dp"
         android:layout_height="45dp"
+        android:layout_marginBottom="656dp"
+        android:background="@android:color/transparent"
+        android:onClick="Login"
         android:text="Iniciar Sesión"
         android:textColor="@color/black"
-        android:background="@android:color/transparent"
         app:autoSizeMaxTextSize="100sp"
         app:autoSizeMinTextSize="12sp"
         app:autoSizeStepGranularity="2sp"
         app:autoSizeTextType="uniform"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="2dp"
-        tools:ignore="MissingConstraints"
-        android:onClick="Login"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:layout_width="wrap_content"
@@ -44,12 +46,15 @@
         android:id="@+id/TextName"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="584dp"
         android:text="Nombre"
         android:textColor="@color/black"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="82dp"
         tools:pa="230dp" />
 
     <EditText
@@ -57,135 +62,165 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="540dp"
         android:hint="Ingresa tu nombre"
         android:inputType="text"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="114dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/TextSurnames"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginBottom="508dp"
         android:text="Apellidos"
-        tools:layout_editor_absoluteY="160dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/FielSurnames"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="464dp"
         android:hint="Ingrese tus apellidos"
         android:inputType="text"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="192dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/TextPhoneNumberField"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginBottom="432dp"
         android:text="Teléfono"
-        tools:layout_editor_absoluteY="237dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.104"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/FieldPhoneNumberField"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="388dp"
         android:hint="Numero de Teléfono"
         android:inputType="phone"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="270dp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/TextPassword"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginBottom="280dp"
         android:text="Contraseña"
-        tools:layout_editor_absoluteY="390dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/FieldPassword"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="236dp"
         android:hint="Ingrese tu contraseña"
         android:inputType="text"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="420dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/TextConfirmPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginBottom="204dp"
         android:text="Confirmar Contraseña"
-        tools:layout_editor_absoluteY="466dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.344"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/FieldConfirmPassword"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="160dp"
         android:hint="Ingresa tu contraseña"
         android:inputType="text"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="498dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/TextEmail"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginBottom="356dp"
         android:text="Correo Electronico"
-        tools:layout_editor_absoluteY="314dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/FieldEmail"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="312dp"
         android:hint="Ejemplo@gmail.com"
         android:inputType="text"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="346dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/ButtonRegister"
         android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="92dp"
         android:backgroundTint="@color/Login"
         android:enabled="false"
         android:onClick="Register"
         android:text="Registrar"
         android:textColor="@color/white"
-        tools:layout_editor_absoluteX="125dp"
-        tools:layout_editor_absoluteY="578dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
