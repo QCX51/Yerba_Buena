@@ -3,11 +3,11 @@ package com.example.yerbabuena
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
+import android.location.LocationManager
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -25,6 +25,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 
@@ -108,9 +109,33 @@ class MapsFragment : Fragment(), GoogleMap.OnCameraIdleListener, LocationListene
             }
         }
 
-    //Getting current location
-    private fun updateLocation() {
-        
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager =
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    // Getting last known location
+    private fun getLastLocation() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            getLocationPermission()
+        }
+        fusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
+            val location: Location? = task.result
+            if (location != null)
+            {
+                val latLng: LatLng = LatLng(location.latitude, location.longitude)
+                updateLocation(latLng)
+            }
+        }
     }
     private  fun getCurrentLocation()
     {
