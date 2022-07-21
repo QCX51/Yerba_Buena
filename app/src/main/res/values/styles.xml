@@ -3,6 +3,14 @@
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
+    <style name="FacebookLoginButton">
+        <item name="android:textSize">19sp</item>
+        <item name="android:layout_width">260dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:text">@string/facebook</item>
+        <!--<item name="android:background">@drawable/facebook_signin_btn</item>-->
+    </style>
+
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">normal</item>

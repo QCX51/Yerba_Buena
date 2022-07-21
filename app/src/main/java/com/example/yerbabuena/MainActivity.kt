@@ -41,10 +41,11 @@ class MainActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Hola: " + Firebase.auth.currentUser?.displayName, Toast.LENGTH_SHORT).show()
 
-        homeFragment = HomeFragment()
+        //homeFragment = HomeFragment()
+        var fragment:MapsFragment = MapsFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.home_content, homeFragment )
+            .replace(R.id.home_content, fragment )
             .commit()
         navigationView.setCheckedItem(R.id.inicio)
 

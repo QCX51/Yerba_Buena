@@ -17,11 +17,13 @@ class SplashActivity : AppCompatActivity() {
         super.onStart()
         if (Firebase.auth.currentUser == null)
         {
-            startActivity(Intent(this, SplashActivity::class.java))
+            startActivity(Intent(applicationContext, LoginActivity::class.java))
+            finish()
         }
         else
         {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
         }
     }
 }

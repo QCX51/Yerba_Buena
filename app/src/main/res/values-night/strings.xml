@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="web_client_id">864446602626-isu5o2vsurb0rsudg53ntit7bpb8opni.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">1033529454221864</string>
+    <string name="fb_login_protocol_scheme">fb1033529454221864</string>
+    <string name="facebook_client_token">aee2b49fc5023edc424e57e5595cb717</string>
+
+    <!--Mensajes-->
+    <string name="msg_request_permission_rationale">Para poder ofrecerte un mejor servicio app_name necesita acceder a tu ubicacion</string>
 </resources>
