@@ -107,6 +107,11 @@ class MapsFragment : Fragment(), GoogleMap.OnCameraIdleListener, LocationListene
                 //Toast.makeText(requireContext(), "Not Granted", Toast.LENGTH_SHORT).show()
             }
         }
+
+    //Getting current location
+    private fun updateLocation() {
+        
+    }
     private  fun getCurrentLocation()
     {
         try {
