@@ -46,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
 
         val fButton = findViewById<Button>(R.id.Facebook)
         val gButton = findViewById<Button>(R.id.Google)
+        val signin = findViewById<Button>(R.id.SignIn)
+        val signup = findViewById<Button>(R.id.SignUp)
 
         FirebaseApp.initializeApp(/*context=*/this)
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
@@ -81,6 +83,14 @@ class LoginActivity : AppCompatActivity() {
         }
         gButton.setOnClickListener{
             signIn()
+        }
+        signin.setOnClickListener {
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
+        }
+        signup.setOnClickListener {
+            startActivity(Intent(applicationContext, SignUpActivity::class.java))
+            finish()
         }
     }
 

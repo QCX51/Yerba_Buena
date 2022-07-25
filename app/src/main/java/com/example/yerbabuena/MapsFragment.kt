@@ -77,12 +77,6 @@ class MapsFragment : Fragment(),
          * user has installed Google Play services and returned to the app.
          */
 
-        // Write a message to the database
-        val database = Firebase.database
-        val myRef = database.getReference("Menu")
-        myRef.push()
-        myRef.setValue("Hello, World!")
-
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         getCurrentLocation()

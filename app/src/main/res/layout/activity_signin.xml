@@ -20,11 +20,13 @@
         tools:layout_editor_absoluteY="-28dp" />
 
     <Button
-        android:id="@+id/CheckIn"
+        android:id="@+id/btn_signup"
         android:layout_width="136dp"
         android:layout_height="45dp"
         android:layout_marginBottom="660dp"
         android:background="@android:color/transparent"
+        android:checkable="true"
+        android:enabled="true"
         android:text="Registrarse"
         android:textColor="@color/black"
         app:autoSizeMaxTextSize="100sp"
@@ -105,7 +107,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/text_click"
+        android:id="@+id/linkForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="184dp"
@@ -119,7 +121,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/ButtonLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="230dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"

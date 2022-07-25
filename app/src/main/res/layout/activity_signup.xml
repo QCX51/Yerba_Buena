@@ -5,7 +5,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="12dp">
+    android:layout_margin="12dp"
+    tools:context=".SignUpActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -18,11 +19,13 @@
         />
 
     <Button
-        android:id="@+id/ButtonLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="136dp"
         android:layout_height="45dp"
         android:layout_marginBottom="656dp"
         android:background="@android:color/transparent"
+        android:checkable="true"
+        android:enabled="true"
         android:onClick="Login"
         android:text="Iniciar Sesión"
         android:textColor="@color/black"
@@ -85,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/FielSurnames"
+        android:id="@+id/FieldSurnames"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -112,7 +115,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/FieldPhoneNumberField"
+        android:id="@+id/FieldPhoneNumber"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -206,13 +209,13 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/ButtonRegister"
+        android:id="@+id/btnRegister"
         android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="92dp"
         android:backgroundTint="@color/Login"
-        android:enabled="false"
+        android:enabled="true"
         android:onClick="Register"
         android:text="Registrar"
         android:textColor="@color/white"
