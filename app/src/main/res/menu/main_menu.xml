@@ -4,9 +4,10 @@
 
     <item
         android:id="@+id/buscar"
+        android:checkable="true"
+        android:enabled="true"
         android:icon="@drawable/share"
-        app:showAsAction="ifRoom"
-        android:title="@string/buscar"
-        >
-    </item>
+        android:title="Buscar"
+        android:visible="true"
+        app:showAsAction="ifRoom"></item>
 </menu>

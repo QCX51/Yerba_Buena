@@ -23,13 +23,11 @@
             android:layout_height="wrap_content"
             android:background="@color/principal"
             android:minHeight="?attr/actionBarSize"
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:titleTextColor="@android:color/white"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:theme="@style/ToolbarTheme"
-            >
-        </androidx.appcompat.widget.Toolbar>
-
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:menu="@menu/main_menu"
+            app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -46,6 +44,6 @@
         app:itemIconPadding="0dp"
         app:itemIconTint="@drawable/drawer_selector"
         app:itemTextColor="@drawable/drawer_selector"
-        app:menu="@menu/activity_home_navigation_drawer" />
+        app:menu="@menu/client_navigation_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

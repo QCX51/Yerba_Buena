@@ -24,22 +24,23 @@
         android:layout_height="191dp"
         android:layout_marginStart="30dp"
         android:background="@color/principal"
+        android:contentDescription="logo"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logo"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="16dp"
-        android:contentDescription="@string/todo" />
+        tools:layout_editor_absoluteY="16dp" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/SignIn"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_gravity="start"
         android:layout_marginBottom="364dp"
         android:backgroundTint="@color/Login"
         android:enabled="true"
-        android:text="@string/iniciar_sesi_n"
+        android:text="@string/signin"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,14 +48,15 @@
 
 
     <Button
-        android:id="@+id/Create_Account"
+        android:id="@+id/SignUp"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_gravity="start"
         android:layout_marginBottom="288dp"
         android:backgroundTint="@color/CreateAccount"
         android:enabled="true"
-        android:text="@string/crear_cuenta"
+        android:text="@string/signup"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,8 +107,10 @@
         android:layout_gravity="start"
         android:layout_marginBottom="152dp"
         android:backgroundTint="@color/FacebookButton"
+        android:drawableStart="@drawable/ic_logo_facebook"
         android:enabled="true"
         android:text="@string/facebook"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,37 +125,15 @@
         android:layout_gravity="start"
         android:layout_marginBottom="80dp"
         android:backgroundTint="@color/GoogleButton"
+        android:drawableStart="@drawable/ic_logo_google"
         android:enabled="true"
         android:text="@string/google"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <ImageView
-        android:id="@+id/LogoView"
-        android:layout_width="21dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ogoacebook"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="517dp"
-        android:contentDescription="@string/facebook" />
-
-    <ImageView
-        android:id="@+id/LogoGoogle"
-        android:layout_width="21dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="100dp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ogooogle"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="589dp"
-        android:contentDescription="@string/google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

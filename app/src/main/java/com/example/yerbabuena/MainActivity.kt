@@ -2,6 +2,7 @@ package com.example.yerbabuena
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         var fragment:MapsFragment = MapsFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.home_content, fragment )
+            .replace(R.id.home_content, fragment, "MAP")
             .commit()
         navigationView.setCheckedItem(R.id.inicio)
 
@@ -99,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                     notificacionesFragment =NotificacionesFragment()
                     supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.home_content, notificacionesFragment )
+                        .replace(R.id.home_content, notificacionesFragment, "NOTIFICATIONS")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                     onBackPressed()
@@ -119,8 +122,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun signOut() {
@@ -133,11 +139,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed()
+    {
         when (drawerLayout.isDrawerOpen(GravityCompat.START))
         {
             true -> { drawerLayout.closeDrawer(GravityCompat.START)}
             false -> { super.onBackPressed() }
+        }
+        val mapFragment:Fragment? = supportFragmentManager.findFragmentByTag("MAP")
+        if (mapFragment != null && mapFragment.isVisible)
+        {
+            supportFragmentManager.beginTransaction().remove(mapFragment).commitAllowingStateLoss()
         }
     }
 }
