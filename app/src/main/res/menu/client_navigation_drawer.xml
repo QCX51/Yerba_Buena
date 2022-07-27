@@ -7,7 +7,7 @@
         <menu>
             <group android:checkableBehavior="single">
         <item
-            android:id="@+id/inicio"
+            android:id="@+id/home"
             android:checkable="true"
             android:enabled="true"
             android:icon="@drawable/menu_icon"
@@ -21,19 +21,19 @@
             android:title="Menú" />
 
         <item
-            android:id="@+id/promociones"
+            android:id="@+id/promotions"
             android:checkable="true"
             android:icon="@drawable/menu_icon"
             android:title="Promociónes" />
 
         <item
-            android:id="@+id/pedidos"
+            android:id="@+id/orders"
             android:checkable="true"
             android:icon="@drawable/menu_icon"
             android:title="Pedidos" />
 
         <item
-            android:id="@+id/notificaciones"
+            android:id="@+id/notifications"
             android:icon="@drawable/menu_icon"
             android:title="Notificaciónes" />
 
@@ -45,9 +45,9 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/cerrarsesion"
+                    android:id="@+id/logout"
                     android:icon="@drawable/menu_icon"
-                    android:title="@string/signout" />
+                    android:title="@string/logout" />
             </group>
         </menu>
     </item>

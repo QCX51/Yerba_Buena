@@ -3,7 +3,6 @@ package com.example.yerbabuena
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
@@ -22,6 +20,16 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout:DrawerLayout
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+        val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar);
+        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        toggle.syncState()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,27 +42,35 @@ class MainActivity : AppCompatActivity() {
         lateinit var promocionesFragment: PromocionesFragment
         lateinit var notificacionesFragment: NotificacionesFragment
 
-        val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar);
-        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        /*
+        // Limpia el menu de navegacion actual para mostrar la del repartidor | administrador
+        navigationView.menu.clear()
+        navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
+        // Remueve el encabezado del cliente para poder mostar la del repartidor | administrador
+        navigationView.removeHeaderView(navigationView.getHeaderView(0))
+        val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
+        var headerTitle = view.findViewById<TextView>(R.id.header_title)
+        var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        toggle.syncState()
+        // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
+        headerTitle.text = "Administrador"
+        headerSubtitle.text = "Alain"
+        */
 
         Toast.makeText(this, "Hola: " + Firebase.auth.currentUser?.displayName, Toast.LENGTH_SHORT).show()
 
-        //homeFragment = HomeFragment()
-        var fragment:MapsFragment = MapsFragment()
+        //var fragment = HomeFragment()
+        var fragment = MapsFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.home_content, fragment, "MAP")
             .commit()
-        navigationView.setCheckedItem(R.id.inicio)
+        navigationView.setCheckedItem(R.id.home)
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.inicio -> {
+                R.id.home -> {
                     title = it.title
                     homeFragment = HomeFragment()
                     supportFragmentManager
@@ -75,9 +91,9 @@ class MainActivity : AppCompatActivity() {
                     onBackPressed()
                     true
                 }
-                R.id.promociones -> {
+                R.id.promotions -> {
                     title = it.title
-                    promocionesFragment =PromocionesFragment()
+                    promocionesFragment = PromocionesFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.home_content, promocionesFragment )
@@ -86,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                     onBackPressed()
                     true
                 }
-                R.id.pedidos -> {
+                R.id.orders -> {
                     title = it.title
                     pedidosFragment =PedidosFragment()
                     supportFragmentManager
@@ -97,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     onBackPressed()
                     true
                 }
-                R.id.notificaciones -> {
+                R.id.notifications -> {
                     title = it.title
                     notificacionesFragment =NotificacionesFragment()
                     supportFragmentManager
@@ -108,9 +124,9 @@ class MainActivity : AppCompatActivity() {
                     onBackPressed()
                     true
                 }
-                R.id.cerrarsesion -> {
+                R.id.logout -> {
                     title = it.title
-                    signOut()
+                    logout()
                     onBackPressed()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
@@ -125,17 +141,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean
     {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main_menu, menu)
+        menuInflater.inflate(R.menu.toolbar_main_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun signOut() {
+    private fun logout() {
         // Firebase sign out
         Firebase.auth.signOut()
         // Google sign out
         val signInClient = Identity.getSignInClient(this)
         signInClient.signOut().addOnCompleteListener {
-            Toast.makeText(this, "SignOut Success", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Logout success", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(this, "Logout failed", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -146,10 +164,10 @@ class MainActivity : AppCompatActivity() {
             true -> { drawerLayout.closeDrawer(GravityCompat.START)}
             false -> { super.onBackPressed() }
         }
-        val mapFragment:Fragment? = supportFragmentManager.findFragmentByTag("MAP")
+        /*val mapFragment:Fragment? = supportFragmentManager.findFragmentByTag("MAP")
         if (mapFragment != null && mapFragment.isVisible)
         {
             supportFragmentManager.beginTransaction().remove(mapFragment).commitAllowingStateLoss()
-        }
+        }*/
     }
 }

@@ -9,15 +9,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
 import android.location.LocationManager
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
-import com.google.android.gms.location.LocationListener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
@@ -27,14 +18,17 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
 
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +52,9 @@ class MapsFragment : Fragment(),
     private var pickUpMarker: Marker? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    /**
+     * Actualiza la ubicacion con las nuevas coordenadas obtenidas por el sensor GPS
+     */
     private val locationCallBack: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult) {
             val location: Location? = result?.lastLocation
@@ -67,6 +64,15 @@ class MapsFragment : Fragment(),
             }
         }}
 
+    /**
+     * Remueve el callback de actualizaciones para la obtencion de la ubicacion
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        fusedLocationClient.removeLocationUpdates(locationCallBack)
+    }
+
+    // Este Callback se dispara cuando el mapa este listo para su uso
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -77,9 +83,23 @@ class MapsFragment : Fragment(),
          * user has installed Google Play services and returned to the app.
          */
 
+        // Write a message to the database
+        /*val database = Firebase.database
+        val myRef = database.getReference("Menu")
+        myRef.child("menu").push().child("nombre").setValue("Pechuga de pollo")
+            .addOnSuccessListener {
+                // Write was successful!
+                Toast.makeText(requireContext(), "ok", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                // Write failed
+                Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
+            }*/
+
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        getCurrentLocation()
+        //getCurrentLocation()
+        getLastLocation()
     }
 
     /**
@@ -91,13 +111,13 @@ class MapsFragment : Fragment(),
                 it.value == true
             }
             if (granted) {
-                //Toast.makeText(requireContext(), "Permiso concedido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Permiso concedido", Toast.LENGTH_SHORT).show()
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
                 mapFragment?.getMapAsync(callback)
             }
             else
             {
-                Toast.makeText(requireContext(), "Permiso no concedido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Permiso denegado", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -123,8 +143,17 @@ class MapsFragment : Fragment(),
         ) {
             getLocationPermission()
         }
-        fusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-            val location: Location? = task.result
+        /*fusedLocationClient.lastLocation
+            .addOnSuccessListener { location : Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (location != null)
+                {
+                    val latLng: LatLng = LatLng(location.latitude, location.longitude)
+                    updateLocation(latLng)
+                }
+            }*/
+        val currentLocationRequest = CurrentLocationRequest.Builder().build()
+        fusedLocationClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener { location : Location? ->
             if (location != null)
             {
                 val latLng: LatLng = LatLng(location.latitude, location.longitude)
@@ -135,13 +164,12 @@ class MapsFragment : Fragment(),
     private  fun getCurrentLocation()
     {
         try {
-            mMap.isMyLocationEnabled = true
-            mMap?.uiSettings?.isMyLocationButtonEnabled = true
+            mMap?.isMyLocationEnabled = true
             val locationRequest = LocationRequest.create()
             locationRequest.priority =  Priority.PRIORITY_HIGH_ACCURACY
             locationRequest.interval = 5000
-            //locationRequest.fastestInterval = 3000
-            locationRequest.numUpdates = 1
+            //locationRequest.fastestInterval = 5000
+            //locationRequest.numUpdates = 3
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
             fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null)
         }
@@ -160,7 +188,8 @@ class MapsFragment : Fragment(),
         if (!isLocationEnabled())
         {
             var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(R.string.app_name).setMessage(R.string.msg_request_permission_rationale)
+            var message:String = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
+            builder.setTitle(R.string.app_name).setMessage(message)
             builder.setPositiveButton("OK") { dialog, which ->
                 val intent1 = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent1)
@@ -180,7 +209,8 @@ class MapsFragment : Fragment(),
                 Manifest.permission.ACCESS_FINE_LOCATION))
         {
             var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            builder.setTitle(R.string.app_name).setMessage(R.string.msg_request_permission_rationale)
+            var message = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
+            builder.setTitle(getString(R.string.app_name)).setMessage(message)
             builder.setPositiveButton("OK") { dialog, which ->
                 permReqLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
             }
@@ -194,18 +224,19 @@ class MapsFragment : Fragment(),
     }
 
     private fun updateLocation(latLng: LatLng) {
-        mMap.clear()
-        val markerOptions:MarkerOptions = MarkerOptions()
-        var name: String? = FirebaseAuth.getInstance().currentUser?.displayName
+        var name = FirebaseAuth.getInstance().currentUser?.displayName
         if (name == null) name = "Cliente"
+
+        mMap?.clear()
+        val markerOptions:MarkerOptions = MarkerOptions()
         markerOptions.title("$name")
         markerOptions.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_delivery_man))
         markerOptions.draggable(true)
         markerOptions.position(latLng)
 
-        mMap.addMarker(markerOptions)
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
+        mMap?.addMarker(markerOptions)
+        mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
     }
 
     override fun onCreateView(
@@ -255,8 +286,6 @@ class MapsFragment : Fragment(),
     }
 
     override fun onCameraIdle() {
-        zoom = mMap.cameraPosition.zoom
-        Toast.makeText(requireContext(), "$zoom", Toast.LENGTH_SHORT).show()
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

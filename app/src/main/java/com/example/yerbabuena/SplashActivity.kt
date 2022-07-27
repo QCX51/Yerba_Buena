@@ -14,6 +14,11 @@ class SplashActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
         }
+        else if (!Firebase.auth.currentUser!!.isEmailVerified)
+        {
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
+        }
         else
         {
             startActivity(Intent(applicationContext, MainActivity::class.java))

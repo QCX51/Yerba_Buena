@@ -12,12 +12,6 @@
     android:background="@color/principal"
     tools:context=".LoginActivity">
 
-    <!-- Load the toolbar here -->
-    <include
-        layout="@layout/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="348dp"

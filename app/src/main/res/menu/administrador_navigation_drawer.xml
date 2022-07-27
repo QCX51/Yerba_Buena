@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/admin_products"
+                    android:checkable="true"
+                    android:enabled="true"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/products"
+                    android:visible="true" />
+
+                <item
+                    android:id="@+id/admin_employers"
+                    android:checkable="true"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/employes" />
+
+                <item
+                    android:id="@+id/admin_promotions"
+                    android:checkable="true"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/promotions" />
+
+                <item
+                    android:id="@+id/admin_clients"
+                    android:checkable="true"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/clients" />
+
+                <item
+                    android:id="@+id/admin_reports"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/reports" />
+
+    </group>
+        </menu>
+    </item>
+    <group>
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/logout" />
+            </group>
+        </menu>
+    </item>
+    </group>
+</menu>
