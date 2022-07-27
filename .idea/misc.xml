@@ -11,6 +11,7 @@
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_sign_in.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_signin.xml" value="0.25" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_signup.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/card_layout.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/content_login.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/createaccount_layout.xml" value="0.152" />
@@ -19,6 +20,8 @@
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_main.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_maps.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_menu.xml" value="0.25" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_notificaciones.xml" value="0.25" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_pedidos.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_second.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/toolbar_main.xml" value="0.25" />
