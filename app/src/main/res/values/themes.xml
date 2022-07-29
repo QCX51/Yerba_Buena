@@ -15,4 +15,13 @@
         <item name="android:navigationBarColor" tools:targetApi="l">@color/principal</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.YerbaBuena.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.YerbaBuena.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.YerbaBuena.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

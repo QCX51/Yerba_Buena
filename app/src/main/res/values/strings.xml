@@ -13,7 +13,7 @@
     <string name="facebook_app_id">605612360973350</string>
     <string name="fb_login_protocol_scheme">fb605612360973350</string>
     <string name="facebook_client_token">394d155cbe052815c7b00730dded73e2</string>
-    
+
     <!--Messages-->
     <string name="msg_request_permission_rationale">Para poder brindarte un mejor servicio %1$s necesita acceder a tu ubicacion</string>
     <string name="msg_request_permission">Adquiriendo permisos</string>
@@ -60,4 +60,20 @@
     <string name="passwords_not_match">Las contraseñas que ingresaste no coinciden</string>
     <string name="invalid_password">La contraseña que ingresaste no es válida.\nDebe contener almenos 8 carácteres con una combinación de números, mayúsculas y carácteres especiáles</string>
     <string name="empty_field">Este campo no debe estar vacío.</string>
+    <string name="title_activity_checkoutview">checkoutview</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!--Payment Dropdown Menu-->
+        <string name="YerbaBuena">Menu desplegable</string>
+        <string-array name="tipos_de_pago">
+            <item>Efectivo</item>
+            <item>Tarjeta</item>
+        </string-array>
 </resources>
