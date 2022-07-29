@@ -30,7 +30,7 @@
     <string name="facebook">Facebook</string>
     <!--Toolbar-->
     <string name="search">Buscar</string>
-    <!--Menu de navegacion-->
+    <!-- ****** Menu de navegacion ****** -->
     <string name="logout">Cerrar sesión</string>
     <!--Encabezado-->
     <string name="title">Title</string>
@@ -50,5 +50,14 @@
     <string name="promotions">Promociónes</string>
     <string name="orders">Pedidos</string>
     <string name="notifications">Notificaciónes</string>
-
+    <!-- ******************************** -->
+    <!--Variables-->
+    <string name="default_role">Cliente</string>
+    <!--Validaciones-->
+    <string name="invalid_email">El correo que ingresaste no es válido.</string>
+    <string name="invalid_password_lenght">La contraseña debe contener más de 8 carácteres.</string>
+    <string name="invalid_phone">El número de telefono que ingresaste no es válido.</string>
+    <string name="passwords_not_match">Las contraseñas que ingresaste no coinciden</string>
+    <string name="invalid_password">La contraseña que ingresaste no es válida.\nDebe contener almenos 8 carácteres con una combinación de números, mayúsculas y carácteres especiáles</string>
+    <string name="empty_field">Este campo no debe estar vacío.</string>
 </resources>
