@@ -71,9 +71,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <!--Payment Dropdown Menu-->
-        <string name="YerbaBuena">Menu desplegable</string>
-        <string-array name="tipos_de_pago">
-            <item>Efectivo</item>
-            <item>Tarjeta</item>
-        </string-array>
+    <string name="YerbaBuena">Menu desplegable</string>
+    <string-array name="tipos_de_pago">
+        <item>Efectivo</item>
+        <item>Tarjeta</item>
+    </string-array>
 </resources>
