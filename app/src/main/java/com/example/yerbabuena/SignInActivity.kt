@@ -119,11 +119,4 @@ class SignInActivity : AppCompatActivity() {
         }
         builder.create().show()
     }
-
-    private fun CharSequence.isValidPassword(): Boolean {
-        val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$"
-        val pattern = Pattern.compile(passwordPattern)
-        val matcher = pattern.matcher(this)
-        return matcher.matches()
-    }
 }

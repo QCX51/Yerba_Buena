@@ -15,13 +15,13 @@
     <string name="facebook_client_token">394d155cbe052815c7b00730dded73e2</string>
 
     <!--Messages-->
-    <string name="msg_request_permission_rationale">Para poder brindarte un mejor servicio %1$s necesita acceder a tu ubicacion</string>
+    <string name="msg_request_permission_rationale">Para poder brindarte un mejor servicio %1$s necesita acceder a tu ubicación</string>
     <string name="msg_request_permission">Adquiriendo permisos</string>
-    <string name="email_not_verified_message">El correo <b>%1$s</b> aun no ha sido verificado.\n\nDeseas recibir un codigo de verificacion ahora?</string>
+    <string name="email_not_verified_message">El correo <b>%1$s</b> aun no ha sido verificado.\n\n¿Deseas recibir un codigo de verificacion ahora?</string>
     <string name="email_not_verified_title">Verificacion de correo</string>
     <string name="email_verification_sent">Correo de verificacion enviado.\nPor favor, revisa tu buzon o spam e intenta de nuevo</string>
     <string name="email_password_reset_title">Reestablecer contraseña</string>
-    <string name="email_password_reset_message">Deseas recibir un correo ahora para reestablecer tu contraseña?</string>
+    <string name="email_password_reset_message">¿Deseas recibir un correo ahora para reestablecer tu contraseña?</string>
     <string name="email_password_reset_sent">Se ha enviado un correo para reestablecer su contraseña.</string>
     <!--Login Buttons-->
     <string name="signin">Iniciar sesión</string>

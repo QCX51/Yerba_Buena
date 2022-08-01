@@ -85,7 +85,7 @@ class MapsFragment : Fragment(),
 
         // Write a message to the database
         /*val database = Firebase.database
-        val myRef = database.getReference("Menu")
+        val myRef = database.getReference("Menus")
         myRef.child("menu").push().child("nombre").setValue("Pechuga de pollo")
             .addOnSuccessListener {
                 // Write was successful!
@@ -98,8 +98,7 @@ class MapsFragment : Fragment(),
 
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        //getCurrentLocation()
-        getLastLocation()
+        getCurrentLocation()
     }
 
     /**
@@ -108,7 +107,7 @@ class MapsFragment : Fragment(),
     private val permReqLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             val granted = permissions.entries.all {
-                it.value == true
+                it.value
             }
             if (granted) {
                 Toast.makeText(requireContext(), "Permiso concedido", Toast.LENGTH_SHORT).show()
@@ -156,7 +155,7 @@ class MapsFragment : Fragment(),
         fusedLocationClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener { location : Location? ->
             if (location != null)
             {
-                val latLng: LatLng = LatLng(location.latitude, location.longitude)
+                val latLng = LatLng(location.latitude, location.longitude)
                 updateLocation(latLng)
             }
         }
@@ -167,7 +166,7 @@ class MapsFragment : Fragment(),
             mMap?.isMyLocationEnabled = true
             val locationRequest = LocationRequest.create()
             locationRequest.priority =  Priority.PRIORITY_HIGH_ACCURACY
-            locationRequest.interval = 5000
+            locationRequest.interval = 3000
             //locationRequest.fastestInterval = 5000
             //locationRequest.numUpdates = 3
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -191,6 +190,7 @@ class MapsFragment : Fragment(),
             var message:String = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
             builder.setTitle(R.string.app_name).setMessage(message)
             builder.setPositiveButton("OK") { dialog, which ->
+                dialog.dismiss()
                 val intent1 = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent1)
             }
@@ -198,26 +198,22 @@ class MapsFragment : Fragment(),
         }
         if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED)
-        {
+            != PackageManager.PERMISSION_GRANTED) {
             //ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             //    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
             Toast.makeText(requireContext(), "${R.string.msg_request_permission}", Toast.LENGTH_SHORT).show()
             permReqLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-        }
-        else if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION))
-        {
+        } else if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION))  {
             var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             var message = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
             builder.setTitle(getString(R.string.app_name)).setMessage(message)
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("OK") { dialog, _ ->
                 permReqLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
+                dialog.dismiss()
             }
             builder.create().show()
-        }
-        else
-        {
+        } else {
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
         }
@@ -226,14 +222,12 @@ class MapsFragment : Fragment(),
     private fun updateLocation(latLng: LatLng) {
         var name = FirebaseAuth.getInstance().currentUser?.displayName
         if (name == null) name = "Cliente"
-
         mMap?.clear()
         val markerOptions:MarkerOptions = MarkerOptions()
         markerOptions.title("$name")
         markerOptions.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_delivery_man))
         markerOptions.draggable(true)
         markerOptions.position(latLng)
-
         mMap?.addMarker(markerOptions)
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
         mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))

@@ -7,17 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yerbabuena.menus.Inicio
+import com.example.yerbabuena.menus.Menus
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var adapter: HomeAdapter
 
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_home.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -36,14 +37,21 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        val database = Firebase.database
+        val myRef = database.getReference("Menus/Home")
+
         // Inflate the layout for this fragment
         val view:View = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = CustomAdapter()
+
+        val options = FirebaseRecyclerOptions.Builder<Inicio>()
+        options.setQuery(myRef, Inicio::class.java)
+        options.setLifecycleOwner(this)
+
+        adapter = HomeAdapter(options.build())
 
         recyclerView.layoutManager = LinearLayoutManager (view.context)
         recyclerView.adapter = adapter
-
         return view
     }
 

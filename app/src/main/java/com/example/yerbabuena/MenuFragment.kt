@@ -7,21 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yerbabuena.menus.Menus
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_menu.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MenuFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var adapter: MenuAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +31,35 @@ class MenuFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        val database = Firebase.database
+        val myRef = database.getReference("Menus/Menu")
 
         // Inflate the layout for this fragment
-        val view:View = inflater.inflate(R.layout.fragment_menu, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_menu, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = CustomAdapter()
+        val options = FirebaseRecyclerOptions.Builder<Menus>()
+        options.setQuery(myRef, Menus::class.java)
+        options.setLifecycleOwner(this)
 
-        recyclerView.layoutManager = LinearLayoutManager (view.context)
+        adapter = MenuAdapter(options.build())
+
+        /*val adapter = object : FirebaseRecyclerAdapter<Menus, ChatHolder>(options) {}*/
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.adapter = adapter
 
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        adapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.stopListening()
     }
 
     companion object {
@@ -56,7 +71,6 @@ class MenuFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment fragment_menu.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MenuFragment().apply {

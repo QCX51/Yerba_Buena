@@ -1,6 +1,7 @@
 package com.example.yerbabuena
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
@@ -9,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.IgnoreExtraProperties
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
@@ -106,6 +108,12 @@ class SignUpActivity : AppCompatActivity() {
                     }?.addOnFailureListener {
                         Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
                     }
+                    val profileUpdates = userProfileChangeRequest {
+                        displayName = "$name $surname"
+                        //photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
+                    }
+
+                    task.result.user!!.updateProfile(profileUpdates)
                     saveUserData(name, surname, phone, email)
                     startActivity(Intent(this, SignInActivity::class.java))
                     finish()
