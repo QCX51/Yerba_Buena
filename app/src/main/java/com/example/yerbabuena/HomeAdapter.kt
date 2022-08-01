@@ -39,7 +39,7 @@ class HomeAdapter(options: FirebaseRecyclerOptions<Inicio>) : FirebaseRecyclerAd
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Inicio) {
         holder.itemTitle.text = model.getName()
         holder.itemDetail.text = model.getDescription()
-        holder.itemCount.text = model.getPrice().toString()
+        holder.itemCount.text = "$${model.getPrice()}"
         holder.itemShopping.setImageResource(R.drawable.shoppingcart)
         holder.itemImage.setImageResource(R.drawable.itemensalda)
 

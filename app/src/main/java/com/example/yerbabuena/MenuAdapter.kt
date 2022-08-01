@@ -38,6 +38,7 @@ class MenuAdapter(options: FirebaseRecyclerOptions<Menus>) : FirebaseRecyclerAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Menus) {
         holder.itemTitle.text = model.getName()
         holder.itemDetail.text = model.getDescription()
+        holder.itemCount.text = "$${model.getPrice()}"
         holder.itemShare.setImageResource(R.drawable.share)
         holder.itemShopping.setImageResource(R.drawable.shoppingcart)
         holder.itemImage.setImageResource(R.drawable.itemensalda)

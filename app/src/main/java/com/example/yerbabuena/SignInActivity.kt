@@ -14,6 +14,12 @@ import com.google.firebase.ktx.Firebase
 import java.util.regex.Pattern
 
 class SignInActivity : AppCompatActivity() {
+
+    override fun onBackPressed()
+    {
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
+        finish()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
