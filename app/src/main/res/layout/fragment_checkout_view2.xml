@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".CheckoutView2">
 
-
-
-
-
     <Spinner
         android:id="@+id/SpinnerMethodCheckout"
         android:layout_width="282dp"
@@ -121,4 +117,5 @@
         app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints,OnClick" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
