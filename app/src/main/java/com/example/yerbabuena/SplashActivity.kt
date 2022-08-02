@@ -30,6 +30,12 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(Intent(applicationContext, MainActivity::class.java))
                     finish()
                 }
+                "apple.com" -> {
+                    // Signed In using apple id
+                }
+                "phone" -> {
+                    // Signed In using phone auth
+                }
                 "password" -> {
                     if (Firebase.auth.currentUser?.isEmailVerified != true)
                     {

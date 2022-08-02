@@ -115,13 +115,24 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.notifications -> {
                     title = it.title
-                    notificacionesFragment =NotificacionesFragment()
+                    notificacionesFragment = NotificacionesFragment()
                     supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.home_content, notificacionesFragment, "NOTIFICATIONS")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit()
                     onBackPressed()
+                    true
+                }
+                R.id.test ->
+                {
+                    supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.home_content, CheckoutView2(), "Checkout")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                    onBackPressed()
+                    title = it.title
                     true
                 }
                 R.id.logout -> {
