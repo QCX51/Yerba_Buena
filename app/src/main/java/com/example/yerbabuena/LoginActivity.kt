@@ -33,7 +33,9 @@ import com.facebook.login.LoginResult
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var signInClient: SignInClient
+    private lateinit var oneTapClient: SignInClient
+    private lateinit var signUpRequest: BeginSignInRequest
+    private lateinit var signInRequest: BeginSignInRequest
     private lateinit var callbackManager: CallbackManager
 
     private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
@@ -58,31 +60,34 @@ class LoginActivity : AppCompatActivity() {
         auth = Firebase.auth
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create()
+        LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                handleFacebookAccessToken(loginResult.accessToken)
+            }
 
-        signInClient = Identity.getSignInClient(this) // On a fragment, use requireContext() instead
+            override fun onCancel() {
+                Toast.makeText(applicationContext, "facebook:onCancel",
+                    Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError(error: FacebookException) {
+                Toast.makeText(applicationContext, "facebook:onError $error",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
 
         fButton.setOnClickListener {
             //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("user_photos", "email", "public_profile", "user_posts" , "AccessToken"))
             //LoginManager.getInstance().logInWithPublishPermissions(this, Arrays.asList("publish_actions"))
-            LoginManager.getInstance().logInWithReadPermissions(this, listOf("email", "public_profile"))
-            LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    handleFacebookAccessToken(loginResult.accessToken)
-                }
-
-                override fun onCancel() {
-                    Toast.makeText(applicationContext, "facebook:onCancel",
-                        Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onError(error: FacebookException) {
-                    Toast.makeText(applicationContext, "facebook:onError $error",
-                        Toast.LENGTH_SHORT).show()
-                }
-            })
+            LoginManager.getInstance().logInWithReadPermissions(
+                this,
+                callbackManager, //we added callback here according to new sdk 12.0.0 version of facebook
+                listOf("public_profile", "email")
+            )
         }
         gButton.setOnClickListener{
-            signIn()
+            //signIn()
+            oneTapSignIn()
         }
         signin.setOnClickListener {
             startActivity(Intent(applicationContext, SignInActivity::class.java))
@@ -101,13 +106,12 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
                     // If sign in fails, display a message to the user.
-                    Toast.makeText(this, "Authentication failed. $task",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Authentication failed. ${task.exception?.message}",
+                        Toast.LENGTH_LONG).show()
                 }
             }
     }
@@ -116,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
         // Result returned from launching the Sign In PendingIntent
         try {
             // Google Sign In was successful, authenticate with Firebase
-            val credential = signInClient.getSignInCredentialFromIntent(data)
+            val credential = oneTapClient.getSignInCredentialFromIntent(data)
             val idToken = credential.googleIdToken
             if (idToken != null) {
                 //Log.d(TAG, "firebaseAuthWithGoogle: ${credential.id}")
@@ -158,7 +162,7 @@ class LoginActivity : AppCompatActivity() {
             .setServerClientId(getString(R.string.web_client_id))
             .build()
 
-        signInClient.getSignInIntent(signInRequest)
+        oneTapClient.getSignInIntent(signInRequest)
             .addOnSuccessListener { pendingIntent ->
                 launchSignIn(pendingIntent)
             }
@@ -167,26 +171,63 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun oneTapSignIn() {
-        // Configure One Tap UI
-        val oneTapRequest = BeginSignInRequest.builder()
+    private fun oneTapSignUp()
+    {
+        oneTapClient = Identity.getSignInClient(this)
+        signUpRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                     .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
                     .setServerClientId(getString(R.string.web_client_id))
+                    // Show all accounts on the device.
+                    .setFilterByAuthorizedAccounts(false)
+                    .build())
+            .build()
+        oneTapClient.beginSignIn(signUpRequest)
+            .addOnSuccessListener(this) { result ->
+                try {
+                    launchSignIn(result.pendingIntent)
+                } catch (e: IntentSender.SendIntentException) {
+                    Toast.makeText(this, "Couldn't start One Tap UI: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener(this) { e ->
+                // No Google Accounts found. Just continue presenting the signed-out UI.
+                //Log.d(TAG, e.localizedMessage)
+            }
+
+    }
+
+    private fun oneTapSignIn() {
+        // Configure One Tap UI
+        oneTapClient = Identity.getSignInClient(this)
+
+        signInRequest = BeginSignInRequest.builder()
+            .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
+                .setSupported(true)
+                .build())
+            .setGoogleIdTokenRequestOptions(
+                BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+                    .setSupported(true)
+                    // Your server's client ID, not your Android client ID.
+                    .setServerClientId(getString(R.string.web_client_id))
+                    // Only show accounts previously used to sign in.
                     .setFilterByAuthorizedAccounts(true)
-                    .build()
-            )
+                    .build())
+            // Automatically sign in when exactly one credential is retrieved.
+            .setAutoSelectEnabled(true)
             .build()
 
         // Display the One Tap UI
-        signInClient.beginSignIn(oneTapRequest)
+        oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener { result ->
                 launchSignIn(result.pendingIntent)
             }
             .addOnFailureListener { e ->
                 // No saved credentials found. Launch the One Tap sign-up flow, or
                 // do nothing and continue presenting the signed-out UI.
+                oneTapSignUp()
             }
     }
 
@@ -207,8 +248,8 @@ class LoginActivity : AppCompatActivity() {
         // Facebook sign-out
         LoginManager.getInstance().logOut()
         // Google sign-out
-        signInClient = Identity.getSignInClient(this)
-        signInClient.signOut().addOnCompleteListener {
+        oneTapClient = Identity.getSignInClient(this)
+        oneTapClient.signOut().addOnCompleteListener {
             //updateUI(null)
         }
     }

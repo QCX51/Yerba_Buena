@@ -32,6 +32,7 @@
     <string name="search">Buscar</string>
     <!-- ****** Menu de navegacion ****** -->
     <string name="logout">Cerrar sesión</string>
+    <string name="test">Pago</string>
     <!--Encabezado-->
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>

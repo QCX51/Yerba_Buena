@@ -4,10 +4,12 @@ class Menus {
     private lateinit var name: String
     private lateinit var description: String
     private lateinit var imageuri: String
+    private var price: Double = 0.0
     private var available: Boolean = true
 
     fun getName(): String { return name }
     fun getDescription(): String { return  description }
+    fun getPrice(): Double { return  price }
     fun getImageUri(): String { return  imageuri }
     fun isAvailable(): Boolean { return available }
 

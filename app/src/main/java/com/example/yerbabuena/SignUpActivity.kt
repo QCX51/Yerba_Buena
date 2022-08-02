@@ -41,6 +41,12 @@ class SignUpActivity : AppCompatActivity() {
         // for deserialization from a DataSnapshot.
     }
 
+    override fun onBackPressed()
+    {
+        startActivity(Intent(applicationContext, LoginActivity::class.java))
+        finish()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)

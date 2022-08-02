@@ -11,31 +11,36 @@
             android:checkable="true"
             android:enabled="true"
             android:icon="@drawable/menu_icon"
-            android:title="Inicio"
+            android:title="@string/home"
             android:visible="true" />
 
         <item
             android:id="@+id/menu"
             android:checkable="true"
             android:icon="@drawable/menu_icon"
-            android:title="Menú" />
+            android:title="@string/menu" />
 
         <item
             android:id="@+id/promotions"
             android:checkable="true"
             android:icon="@drawable/menu_icon"
-            android:title="Promociónes" />
+            android:title="@string/promotions" />
 
         <item
             android:id="@+id/orders"
             android:checkable="true"
             android:icon="@drawable/menu_icon"
-            android:title="Pedidos" />
+            android:title="@string/orders" />
 
         <item
             android:id="@+id/notifications"
             android:icon="@drawable/menu_icon"
-            android:title="Notificaciónes" />
+            android:title="@string/notifications" />
+
+                <item
+                    android:id="@+id/test"
+                    android:icon="@drawable/menu_icon"
+                    android:title="@string/test" />
 
     </group>
         </menu>
