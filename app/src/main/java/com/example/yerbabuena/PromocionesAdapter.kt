@@ -1,5 +1,6 @@
 package com.example.yerbabuena
 
+import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class PromocionesAdapter : RecyclerView.Adapter<PromocionesAdapter.ViewHolder>() {
     val titles = arrayOf(
         "Comida",
         "Ensalada",
@@ -41,11 +42,11 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.itemtitle.text = titles[i]
-        viewHolder.itemdetail.text = details[i]
+        viewHolder.textTitle.text = titles[i]
+        viewHolder.textDes.text = details[i]
         viewHolder.itemshare.setImageResource(shares[i])
         viewHolder.itemshopping.setImageResource(shopings[i])
-        viewHolder.itemimage.setImageResource(images[i])
+        viewHolder.image.setImageResource(images[i])
     }
 
     override fun getItemCount(): Int {
@@ -54,18 +55,18 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var itemshare: ImageView
+        var image: ImageView
+        var textTitle: TextView
+        var textDes: TextView
         var itemshopping: ImageView
-        var itemimage: ImageView
-        var itemtitle: TextView
-        var itemdetail: TextView
+        var itemshare: ImageView
 
 
         init {
             itemshare = itemView.findViewById(R.id.share)
-            itemimage = itemView.findViewById(R.id.itemImage)
-            itemtitle = itemView.findViewById(R.id.itemTitle)
-            itemdetail = itemView.findViewById(R.id.itemDetail)
+            image = itemView.findViewById(R.id.itemImage)
+            textTitle = itemView.findViewById(R.id.itemTitle)
+            textDes = itemView.findViewById(R.id.itemDetail)
             itemshopping = itemView.findViewById(R.id.shopping)
         }
     }

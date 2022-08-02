@@ -1,15 +1,14 @@
 package com.example.yerbabuena
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SplashActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         if (Firebase.auth.currentUser == null)
         {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
