@@ -80,78 +80,59 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
+                    switchFragment(HomeFragment())
                     title = it.title
-                    homeFragment = HomeFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.home_content, homeFragment )
-                        .commit()
-                    onBackPressed()
                     true
                 }
                 R.id.menu -> {
+                    switchFragment(MenuFragment())
                     title = it.title
-                    menuFragment= MenuFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.home_content, menuFragment )
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-                    onBackPressed()
                     true
                 }
                 R.id.promotions -> {
+                    switchFragment(PromocionesFragment())
                     title = it.title
-                    promocionesFragment = PromocionesFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.home_content, promocionesFragment )
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-                    onBackPressed()
                     true
                 }
                 R.id.orders -> {
+                    switchFragment(PedidosFragment())
                     title = it.title
-                    pedidosFragment =PedidosFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.home_content, pedidosFragment )
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-                    onBackPressed()
                     true
                 }
                 R.id.notifications -> {
+                    switchFragment(NotificacionesFragment())
                     title = it.title
-                    notificacionesFragment = NotificacionesFragment()
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.home_content, notificacionesFragment, "NOTIFICATIONS")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-                    onBackPressed()
                     true
                 }
                 R.id.test ->
                 {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.home_content, CheckoutView2(), "Checkout")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-                    onBackPressed()
+                    switchFragment(CheckoutView2())
                     title = it.title
                     true
                 }
                 // **** Administrador ****
-                R.id.products -> {
-                    supportFragmentManager
-                        .beginTransaction() // Cambiar CheckoutView2() por productosFragment() si ya lo tienen
-                        .replace(R.id.home_content, CheckoutView2(), "Checkout")
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit()
-                    onBackPressed()
+                R.id.admin_products -> {
+                    //switchFragment(ProductosFragment())
+                    title = it.title
+                    true
+                }
+                R.id.admin_employers -> {
+                    //switchFragment(PersonalFragment())
+                    title = it.title
+                    true
+                }
+                R.id.admin_promotions -> {
+                    //switchFragment(PromocionesFragment())
+                    title = it.title
+                    true
+                }
+                R.id.admin_clients -> {
+                    //switchFragment(ClientesFragment())
+                    title = it.title
+                    true
+                }
+                R.id.admin_reports -> {
+                    //switchFragment(ReportesFragment())
                     title = it.title
                     true
                 }
@@ -168,6 +149,16 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    private fun switchFragment(fragment: Fragment)
+    {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.home_content, fragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .commit()
+        onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
