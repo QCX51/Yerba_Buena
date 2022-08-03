@@ -144,6 +144,18 @@ class MainActivity : AppCompatActivity() {
                     title = it.title
                     true
                 }
+                // **** Administrador ****
+                R.id.products -> {
+                    supportFragmentManager
+                        .beginTransaction() // Cambiar CheckoutView2() por productosFragment() si ya lo tienen
+                        .replace(R.id.home_content, CheckoutView2(), "Checkout")
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .commit()
+                    onBackPressed()
+                    title = it.title
+                    true
+                }
+                // ************
                 R.id.logout -> {
                     title = it.title
                     logout()
