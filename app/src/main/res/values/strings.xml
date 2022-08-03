@@ -71,9 +71,19 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
+
+    <!--Instructions For Card Payment-->
+
+    <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este codigo: </string>
+
+
+
+
+
+
     <!--Payment Dropdown Menu-->
-    <string name="YerbaBuena">Menu desplegable</string>
-    <string-array name="tipos_de_pago">
+    <string name="Tipos_de_pago">Menu desplegable</string>
+    <string-array name="TiposDePago">
         <item>Efectivo</item>
         <item>Tarjeta</item>
     </string-array>

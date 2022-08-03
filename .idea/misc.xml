@@ -7,14 +7,16 @@
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/drawable/ic_launcher_background.xml" value="0.121" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/drawable/ic_logofacebook_.xml" value="0.121" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/drawable/ic_logofacebook_adobe_express.xml" value="0.121" />
-        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_login.xml" value="0.5238095238095238" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_checkout_view.xml" value="0.264" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_sign_in.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_signin.xml" value="0.25" />
-        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_signup.xml" value="0.25" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/activity_signup.xml" value="0.264" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/card_layout.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/content_login.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/createaccount_layout.xml" value="0.152" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_checkout_view2.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_first.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_main.xml" value="0.25" />
@@ -22,24 +24,10 @@
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_menu.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_notificaciones.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_pedidos.xml" value="0.25" />
+        <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_promociones.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/fragment_second.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="..\:/Users/Francisco/Desktop/yerba_buena/app/src/main/res/layout/toolbar_main.xml" value="0.25" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/activity_signin.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/card_layout.xml" value="0.33" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_checkout_view2.xml" value="0.25" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_first.xml" value="0.17889492753623187" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_menu.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_second.xml" value="0.17889492753623187" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/main_nav_header.xml" value="0.17889492753623187" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/nav_header.xml" value="0.17889492753623187" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/toolbar_main.xml" value="0.17889492753623187" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/menu/administrador_navigation_drawer.xml" value="0.5" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/menu/client_navigation_drawer.xml" value="0.33" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/menu/repartidor_navigation_drawer.xml" value="0.5" />
-        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/menu/toolbar_main_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2115" />
         <entry key="..\:/Users/QCX51/Projects/Android/yerba_buena/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.141" />
         <entry key="..\:/Users/QCX51/Projects/Android/yerba_buena/app/src/main/res/drawable/drawer_background_selector.xml" value="0.2115" />
@@ -74,21 +62,6 @@
         <entry key="..\:/Users/adria/AndroidStudioProjects/YerbaBuena/app/src/main/res/layout/menu.xml" value="0.25" />
         <entry key="..\:/Users/adria/AndroidStudioProjects/YerbaBuena/app/src/main/res/layout/menu_layout.xml" value="0.24895833333333334" />
         <entry key="..\:/Users/adria/AndroidStudioProjects/YerbaBuena/app/src/main/res/layout/menulayout.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/drawable/custom_checkbox.xml" value="0.2095" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/drawable/effect.xml" value="0.1855" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/drawable/ic_add_circle.xml" value="0.2095" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/drawable/splash.xml" value="0.121" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/activity_login.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/cad_promociones.xml" value="0.24895833333333334" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/card_layout.xml" value="0.2" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/card_pedidos_model.xml" value="0.264" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/card_promociones.xml" value="0.264" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/fragment_checkout_view2.xml" value="0.25" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/fragment_home.xml" value="0.25" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/fragment_menu.xml" value="0.25" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/fragment_notificaciones.xml" value="0.25" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/fragment_pedidos.xml" value="0.2" />
-        <entry key="..\:/Users/adria/Desktop/yerba_buena/app/src/main/res/layout/fragment_promociones.xml" value="0.4" />
       </map>
     </option>
   </component>

@@ -2,14 +2,19 @@ package com.example.yerbabuena
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
+import android.view.View
+import android.view.ViewParent
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
@@ -20,7 +25,6 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout:DrawerLayout
-
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
@@ -168,6 +172,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onBackPressed()
     {
         when (drawerLayout.isDrawerOpen(GravityCompat.START))
@@ -181,4 +187,5 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().remove(mapFragment).commitAllowingStateLoss()
         }*/
     }
+
 }
