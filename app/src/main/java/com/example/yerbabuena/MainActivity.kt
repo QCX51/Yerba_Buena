@@ -3,6 +3,7 @@ package com.example.yerbabuena
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,12 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.yerbabuena.classes.Usuario
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
 
@@ -43,22 +47,27 @@ class MainActivity : AppCompatActivity() {
         lateinit var notificacionesFragment: NotificacionesFragment
 
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        /*
-        // Limpia el menu de navegacion actual para mostrar la del repartidor | administrador
-        navigationView.menu.clear()
-        navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
-        // Remueve el encabezado del cliente para poder mostar la del repartidor | administrador
-        navigationView.removeHeaderView(navigationView.getHeaderView(0))
-        val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
-        var headerTitle = view.findViewById<TextView>(R.id.header_title)
-        var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
 
-        // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
-        headerTitle.text = "Administrador"
-        headerSubtitle.text = "Alain"
-        */
+        val ref = Firebase.database.getReference("/Usuarios")
+        ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
+            var usuario = it.getValue<Usuario>()
+            Toast.makeText(this, "${usuario?.role}", Toast.LENGTH_SHORT).show()
+            if (usuario != null && usuario.role == "Administrador")
+            {
+                // Limpia el menu de navegacion actual para mostrar la del repartidor | administrador
+                navigationView.menu.clear()
+                navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
+                // Remueve el encabezado del cliente para poder mostar la del repartidor | administrador
+                navigationView.removeHeaderView(navigationView.getHeaderView(0))
+                val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
+                var headerTitle = view.findViewById<TextView>(R.id.header_title)
+                var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
 
-        Toast.makeText(this, "Hola: " + Firebase.auth.currentUser?.displayName, Toast.LENGTH_SHORT).show()
+                // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
+                headerTitle.text = usuario.role
+                headerSubtitle.text = Firebase.auth.currentUser!!.displayName
+            }
+        }
 
         //var fragment = HomeFragment()
         val fragment = MapsFragment()

@@ -17,6 +17,7 @@
         android:background="@color/white"
         >
         <!-- Load the toolbar here -->
+
         <include
             layout="@layout/toolbar_main"
             android:layout_width="match_parent"

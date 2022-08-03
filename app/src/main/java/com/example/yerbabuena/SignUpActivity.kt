@@ -8,6 +8,8 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.yerbabuena.classes.Ubicacion
+import com.example.yerbabuena.classes.Usuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -21,25 +23,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var btnRegister: Button
-
-    @IgnoreExtraProperties
-    data class Ubicacion(
-        val latitud: Double? = null,
-        val longitud: Double? = null
-    )
-
-    @IgnoreExtraProperties
-    data class Usuario(
-        val name: String? = null,
-        val surname: String? = null,
-        val phone: String? = null,
-        val email: String? = null,
-        val role: String? = null,
-        val location: Ubicacion? = null
-    ) {
-        // Null default values create a no-argument default constructor, which is needed
-        // for deserialization from a DataSnapshot.
-    }
 
     override fun onBackPressed()
     {
@@ -119,7 +102,7 @@ class SignUpActivity : AppCompatActivity() {
                         //photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
                     }
 
-                    task.result.user!!.updateProfile(profileUpdates)
+                    task.result.user?.updateProfile(profileUpdates)
                     saveUserData(name, surname, phone, email)
                     startActivity(Intent(this, SignInActivity::class.java))
                     finish()

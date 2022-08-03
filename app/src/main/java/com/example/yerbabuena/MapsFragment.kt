@@ -35,11 +35,7 @@ import com.google.firebase.auth.FirebaseAuth
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class MapsFragment : Fragment(),
-    GoogleMap.OnCameraIdleListener,
-    GoogleMap.OnMarkerDragListener,
-    GoogleMap.OnMapLongClickListener
-{
+class MapsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -82,23 +78,13 @@ class MapsFragment : Fragment(),
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-
-        // Write a message to the database
-        /*val database = Firebase.database
-        val myRef = database.getReference("Menus")
-        myRef.child("menu").push().child("nombre").setValue("Pechuga de pollo")
-            .addOnSuccessListener {
-                // Write was successful!
-                Toast.makeText(requireContext(), "ok", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                // Write failed
-                Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show()
-            }*/
-
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        zoom = googleMap.maxZoomLevel - 3F
         getCurrentLocation()
+        googleMap.setOnCameraMoveListener{
+            zoom = googleMap.cameraPosition.zoom
+        }
     }
 
     /**
@@ -265,21 +251,6 @@ class MapsFragment : Fragment(),
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    override fun onMarkerDrag(p0: Marker) {
-    }
-
-    override fun onMarkerDragEnd(p0: Marker) {
-    }
-
-    override fun onMarkerDragStart(p0: Marker) {
-    }
-
-    override fun onMapLongClick(p0: LatLng) {
-    }
-
-    override fun onCameraIdle() {
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.example.yerbabuena.classes.Ubicacion
+import com.example.yerbabuena.classes.Usuario
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.GetSignInIntentRequest
 import com.google.android.gms.auth.api.identity.Identity
@@ -29,6 +31,10 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 
 class LoginActivity : AppCompatActivity() {
 
@@ -77,8 +83,6 @@ class LoginActivity : AppCompatActivity() {
         })
 
         fButton.setOnClickListener {
-            //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("user_photos", "email", "public_profile", "user_posts" , "AccessToken"))
-            //LoginManager.getInstance().logInWithPublishPermissions(this, Arrays.asList("publish_actions"))
             LoginManager.getInstance().logInWithReadPermissions(
                 this,
                 callbackManager, //we added callback here according to new sdk 12.0.0 version of facebook
@@ -99,6 +103,25 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private  fun updateUserInfo(task: Task<AuthResult>)
+    {
+        var ref = Firebase.database.getReference("/Usuarios")
+        ref =  ref.child(task.result.user!!.uid)
+        ref.get().addOnSuccessListener {
+            val user = Usuario()
+            user.name = task.result.user!!.displayName
+            user.surname = ""
+            user.email = task.result.user!!.email
+            user.phone = task.result.user!!.phoneNumber
+            user.location = Ubicacion(0.0, 0.0)
+            val usuario = it.getValue<Usuario>()
+            if (usuario == null && usuario?.role == null) {
+                user.role = getString(R.string.default_role)
+            }
+            ref.setValue(user)
+        }
+    }
+
     private fun handleFacebookAccessToken(token: AccessToken) {
 
         val credential = FacebookAuthProvider.getCredential(token.token)
@@ -106,6 +129,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
+                    updateUserInfo(task)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
@@ -130,9 +154,6 @@ class LoginActivity : AppCompatActivity() {
                 //Log.d(TAG, "No ID token!")
             }
         } catch (e: ApiException) {
-            // Google Sign In failed, update UI appropriately
-            //Log.w(TAG, "Google sign in failed", e)
-            //updateUI(null)
             Toast.makeText(this, "2 Google Sign-in failed ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
@@ -142,14 +163,9 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    //Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    //Toast.makeText(this, "3 Google Sign-in success ${user}", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    updateUserInfo(task)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
-                //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(this, "3 Authentication Failed ${task.exception}", Toast.LENGTH_SHORT).show()
