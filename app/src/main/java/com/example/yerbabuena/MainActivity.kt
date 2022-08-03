@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "Hola: " + Firebase.auth.currentUser?.displayName, Toast.LENGTH_SHORT).show()
 
         //var fragment = HomeFragment()
-        var fragment = MapsFragment()
+        val fragment = MapsFragment()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.home_content, fragment, "MAP")
