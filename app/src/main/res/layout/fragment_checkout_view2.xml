@@ -4,56 +4,111 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".CheckoutView2">
 
-    <Spinner
-        android:id="@+id/SpinnerMethodCheckout"
-        android:layout_width="282dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="117dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="65dp"
+        android:paddingTop="70dp"
+        android:paddingRight="65dp"
+        tools:ignore="MissingConstraints">
 
-    <View
-        android:layout_width="280dp"
-        android:layout_height="1.25dp"
-        android:layout_marginBottom="560dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/PaymentMethodTitle"
+            android:layout_width="174dp"
+            android:layout_height="37dp"
+            android:text="Modo de pago"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.27"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:pa="230dp" />
 
-    <TextView
-        android:id="@+id/PaymentMethodTitle"
-        android:layout_width="174dp"
-        android:layout_height="37dp"
-        android:layout_marginBottom="612dp"
-        android:text="Modo de pago"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:pa="230dp" />
+        <Spinner
+            android:id="@+id/Spinner_Method_Checkout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:tooltipText=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:layout_width="281dp"
-        android:layout_height="135dp"
-        android:layout_marginBottom="476dp"
-        android:imeOptions="actionSend"
-        android:inputType="text"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.25dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="65dp"
+        android:paddingTop="170dp"
+        android:paddingRight="65dp"
+        tools:ignore="MissingConstraints">
+
+        <EditText
+            android:id="@+id/FieldNameCheckOut"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Ingresa tu nombre"
+            android:inputType="text"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/FieldSurnamesCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Ingrese tus apellidos"
+            android:inputType="text"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/FieldCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Numero de tarjeta"
+            android:inputType="text"
+            tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/FieldExpirationDate"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:hint="Fecha de vencimiento"
+            android:inputType="text"
+            tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/FieldCvc"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:hint="CVC"
+            android:inputType="text"
+            tools:ignore="MissingConstraints" />
+
+
+
+
+    </LinearLayout>
+
+<!--
     <TextView
         android:id="@+id/TotalPriceAtCheckout"
         android:layout_width="153dp"
@@ -82,7 +137,7 @@
         app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:pa="230dp" />
+        tools:pa="230dp" /> -->
 
     <Button
         android:id="@+id/btnToPay"

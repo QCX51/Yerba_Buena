@@ -26,9 +26,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YerbaBuena"
         tools:targetApi="31">
-        <activity
-            android:name=".CheckoutView"
-            android:exported="false" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
