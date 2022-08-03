@@ -77,10 +77,6 @@
     <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este codigo: </string>
 
 
-
-
-
-
     <!--Payment Dropdown Menu-->
     <string name="Tipos_de_pago">Menu desplegable</string>
     <string-array name="TiposDePago">
