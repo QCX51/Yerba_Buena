@@ -44,6 +44,8 @@
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/card_layout.xml" value="0.33" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/card_pedidos_model.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/card_promociones.xml" value="0.15648148148148147" />
+        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_card__payment_.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_cash__payment_.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_checkout_view2.xml" value="0.25" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_first.xml" value="0.17889492753623187" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
@@ -54,6 +56,8 @@
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/fragment_second.xml" value="0.17889492753623187" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/main_nav_header.xml" value="0.17889492753623187" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/nav_header.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/navmenu/administrador/fragment_productos.xml" value="0.12447916666666667" />
+        <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/navmenu/administrador/layout/fragment_productos.xml" value="0.12447916666666667" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/navmenu/fragment_productos.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/layout/toolbar_main.xml" value="0.17889492753623187" />
         <entry key="..\:/Users/QCX51/Projects/Android/Studio/yerba_buena/app/src/main/res/menu/administrador_navigation_drawer.xml" value="0.5" />

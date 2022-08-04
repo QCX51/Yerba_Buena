@@ -121,11 +121,6 @@ class MainActivity : AppCompatActivity() {
                     title = it.title
                     true
                 }
-                R.id.admin_promotions -> {
-                    //switchFragment(PromocionesFragment())
-                    title = it.title
-                    true
-                }
                 R.id.admin_clients -> {
                     //switchFragment(ClientesFragment())
                     title = it.title

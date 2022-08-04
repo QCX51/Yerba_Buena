@@ -21,12 +21,6 @@
                     android:title="@string/employes" />
 
                 <item
-                    android:id="@+id/admin_promotions"
-                    android:checkable="true"
-                    android:icon="@drawable/menu_icon"
-                    android:title="@string/promotions" />
-
-                <item
                     android:id="@+id/admin_clients"
                     android:checkable="true"
                     android:icon="@drawable/menu_icon"
