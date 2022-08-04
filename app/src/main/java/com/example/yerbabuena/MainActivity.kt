@@ -35,37 +35,42 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
     }
 
+    private fun switchNavMenu(id: Int, role: String?)
+    {
+        val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
+        val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
+        var headerTitle = view.findViewById<TextView>(R.id.header_title)
+        var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
+
+        // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
+        headerTitle.text = role
+        headerSubtitle.text = Firebase.auth.currentUser!!.displayName
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
-        lateinit var homeFragment: HomeFragment
-        lateinit var menuFragment: MenuFragment
-        lateinit var pedidosFragment: PedidosFragment
-        lateinit var promocionesFragment: PromocionesFragment
-        lateinit var notificacionesFragment: NotificacionesFragment
-
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+        // Limpia el menu de navegacion actual para mostrar la del repartidor | administrador
+        navigationView.menu.clear()
+        // Remueve el encabezado del cliente para poder mostar la del repartidor | administrador
+        navigationView.removeHeaderView(navigationView.getHeaderView(0))
 
         val ref = Firebase.database.getReference("/Usuarios")
         ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
             var usuario = it.getValue<Usuario>()
             Toast.makeText(this, "${usuario?.role}", Toast.LENGTH_SHORT).show()
-            if (usuario != null && usuario.role == "Administrador")
-            {
-                // Limpia el menu de navegacion actual para mostrar la del repartidor | administrador
-                navigationView.menu.clear()
-                navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
-                // Remueve el encabezado del cliente para poder mostar la del repartidor | administrador
-                navigationView.removeHeaderView(navigationView.getHeaderView(0))
-                val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
-                var headerTitle = view.findViewById<TextView>(R.id.header_title)
-                var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
-
-                // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
-                headerTitle.text = usuario.role
-                headerSubtitle.text = Firebase.auth.currentUser!!.displayName
+            if (usuario != null && usuario.role == "Administrador") {
+                switchNavMenu(R.menu.administrador_navigation_drawer, usuario?.role)
+            }
+            else if (usuario != null && usuario.role == "Repartidor") {
+                switchNavMenu(R.menu.repartidor_navigation_drawer, usuario?.role)
+            }
+            else {
+                switchNavMenu(R.menu.client_navigation_drawer, usuario?.role)
             }
         }
 
@@ -79,6 +84,9 @@ class MainActivity : AppCompatActivity() {
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
+                /**
+                 * Cliente
+                 */
                 R.id.home -> {
                     switchFragment(HomeFragment())
                     title = it.title
@@ -110,7 +118,9 @@ class MainActivity : AppCompatActivity() {
                     title = it.title
                     true
                 }
-                // **** Administrador ****
+                /**
+                 * Administrador
+                 */
                 R.id.admin_products -> {
                     switchFragment(ProductosFragment())
                     title = it.title
@@ -131,7 +141,22 @@ class MainActivity : AppCompatActivity() {
                     title = it.title
                     true
                 }
-                // ************
+                /**
+                 * Repartidor
+                 */
+                R.id.orderlist -> {
+                    switchFragment(PedidosListFragment())
+                    title = it.title
+                    true
+                }
+                R.id.location -> {
+                    switchFragment(UbicacionFragment())
+                    title = it.title
+                    true
+                }
+                /**
+                 * Cerrar sesion
+                 */
                 R.id.logout -> {
                     title = it.title
                     logout()

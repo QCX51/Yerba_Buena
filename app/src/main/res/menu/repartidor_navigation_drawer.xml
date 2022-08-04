@@ -7,7 +7,7 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/products"
+                    android:id="@+id/orderlist"
                     android:checkable="true"
                     android:enabled="true"
                     android:icon="@drawable/menu_icon"
