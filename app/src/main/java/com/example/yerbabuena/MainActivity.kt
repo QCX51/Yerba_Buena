@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     private fun switchNavMenu(id: Int, role: String?)
     {
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
+        navigationView.inflateMenu(id)
         val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
         var headerTitle = view.findViewById<TextView>(R.id.header_title)
         var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity() {
         val ref = Firebase.database.getReference("/Usuarios")
         ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
             var usuario = it.getValue<Usuario>()
-            Toast.makeText(this, "${usuario?.role}", Toast.LENGTH_SHORT).show()
             if (usuario != null && usuario.role == "Administrador") {
                 switchNavMenu(R.menu.administrador_navigation_drawer, usuario?.role)
             }
