@@ -112,22 +112,22 @@ class MainActivity : AppCompatActivity() {
                 }
                 // **** Administrador ****
                 R.id.admin_products -> {
-                    //switchFragment(ProductosFragment())
+                    switchFragment(ProductosFragment())
                     title = it.title
                     true
                 }
                 R.id.admin_employers -> {
-                    //switchFragment(PersonalFragment())
+                    switchFragment(PersonalFragment())
                     title = it.title
                     true
                 }
                 R.id.admin_clients -> {
-                    //switchFragment(ClientesFragment())
+                    switchFragment(ClientesFragment())
                     title = it.title
                     true
                 }
                 R.id.admin_reports -> {
-                    //switchFragment(ReportesFragment())
+                    switchFragment(ReportesFragment())
                     title = it.title
                     true
                 }
