@@ -62,25 +62,12 @@
     <string name="invalid_password">La contraseña que ingresaste no es válida.\nDebe contener almenos 8 carácteres con una combinación de números, mayúsculas y carácteres especiáles</string>
     <string name="empty_field">Este campo no debe estar vacío.</string>
     <string name="title_activity_checkoutview">checkoutview</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
-
+    <!--Payment Dropdown Menu-->
+    <string-array name="tipos_de_pago">
+        <item>Efectivo</item>
+        <item>Transferencia</item>
+    </string-array>
     <!--Instructions For Card Payment-->
-
     <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este codigo: </string>
 
-
-    <!--Payment Dropdown Menu-->
-    <string name="Tipos_de_pago">Menu desplegable</string>
-    <string-array name="TiposDePago">
-        <item>Efectivo</item>
-        <item>Tarjeta</item>
-    </string-array>
 </resources>

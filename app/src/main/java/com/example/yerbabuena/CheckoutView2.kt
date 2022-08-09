@@ -1,19 +1,12 @@
 package com.example.yerbabuena
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.drawerlayout.widget.DrawerLayout
+import android.widget.*
+import androidx.navigation.Navigation
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,7 +37,37 @@ class CheckoutView2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkout_view2, container, false)
+        val view = inflater.inflate(R.layout.fragment_checkout, container, false)
+        val spinner = view.findViewById<Spinner>(R.id.Spinner_Method_Checkout)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item,
+            resources.getStringArray(R.array.tipos_de_pago))
+
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object:
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                val navController = Navigation.findNavController(requireActivity(), R.id.fragmentContainerView3)
+                when (adapter.getItem(position))
+                {
+                    "Efectivo" -> {
+                        navController.navigate(R.id.cash_Payment_Fragment)
+                    }
+                    "Transferencia" -> {
+                        navController.navigate(R.id.card_Payment_Fragment)
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                // Nothing selected
+            }
+        }
+        return view
     }
 
     companion object {
@@ -66,57 +89,4 @@ class CheckoutView2 : Fragment() {
                 }
             }
     }
-
-    class CheckoutView : AppCompatActivity() {
-
-        private lateinit var drawerLayout: DrawerLayout
-        override fun onPostCreate(savedInstanceState: Bundle?) {
-            super.onPostCreate(savedInstanceState)
-
-            val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar);
-            setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
-            drawerLayout = findViewById(R.id.drawer_layout)
-            val toggle = ActionBarDrawerToggle(this,
-                drawerLayout,
-                toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close)
-            toggle.syncState()
-        }
-
-    }
-
-
-
-    //Spinner CheckOut
-    /*override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        val spinner = findViewById<Spinner>(R.id.Spinner_Method_Checkout)
-
-        //val lista = listOf("Efectivo","Tarjeta")
-        val lista = resources.getStringArray(R.array.TiposDePago)
-
-        val adaptador = ArrayAdapter (this,android.R.layout.simple_spinner_item,lista)
-        spinner.adapter = adaptador
-
-        spinner.onItemSelectedListener = object:
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                Toast.makeText(this@MainActivity,lista[position], Toast.LENGTH_LONG).show()
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
-
-
-    }*/
-
 }

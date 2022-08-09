@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="toolbar">
-
     <item
-        android:id="@+id/buscar"
-        android:checkable="true"
+        android:id="@+id/app_bar_search"
+        android:checkable="false"
+        android:checked="false"
+        android:contentDescription="@string/search"
         android:enabled="true"
-        android:icon="@drawable/share"
+        android:icon="@drawable/ic_action_search"
         android:title="@string/search"
-        android:visible="true"
-        app:showAsAction="ifRoom"></item>
+        app:actionViewClass="android.widget.SearchView"
+        app:showAsAction="ifRoom" />
 </menu>
