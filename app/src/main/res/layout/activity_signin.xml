@@ -24,8 +24,7 @@
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="136dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="652dp"
+        android:layout_height="48dp"
         android:background="@android:color/transparent"
         android:checkable="true"
         android:enabled="true"
@@ -38,7 +37,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.996"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="12dp" />
     <ScrollView
         android:paddingTop="70dp"
         android:id="@+id/scrollView2"
@@ -89,6 +89,7 @@
                 android:layout_centerHorizontal="true"
                 android:hint="Ejemplo@gmail.com"
                 android:inputType="text"
+                android:minHeight="48dp"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -115,6 +116,7 @@
                 android:layout_centerHorizontal="true"
                 android:hint="Ingrese tu contraseña"
                 android:inputType="textPassword"
+                android:minHeight="48dp"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,19 +132,20 @@
                 android:paddingLeft="33dp"
                 android:paddingTop="20dp"
                 android:paddingRight="33dp">
-            <TextView
-                android:id="@+id/linkForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:enabled="true"
-                android:text="¿Olvidaste tu contraseña?"
-                android:textColor="@android:color/darker_gray"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/linkForgotPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:enabled="true"
+                    android:text="¿Olvidaste tu contraseña?"
+                    android:textColor="@android:color/darker_gray"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
             </LinearLayout>
 
 

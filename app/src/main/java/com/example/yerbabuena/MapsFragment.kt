@@ -30,13 +30,11 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.firebase.auth.FirebaseAuth
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class MapsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -53,7 +51,7 @@ class MapsFragment : Fragment() {
      */
     private val locationCallBack: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult) {
-            val location: Location? = result?.lastLocation
+            val location: Location? = result.lastLocation
             if(location != null) {
                 val latLng = LatLng(location.latitude, location.longitude)
                 updateLocation(latLng)
@@ -78,13 +76,14 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
+        googleMap.setOnCameraMoveListener {
+            zoom = googleMap.cameraPosition.zoom
+        }
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         zoom = googleMap.maxZoomLevel - 3F
         getCurrentLocation()
-        googleMap.setOnCameraMoveListener{
-            zoom = googleMap.cameraPosition.zoom
-        }
+        //getLastLocation()
     }
 
     /**
@@ -100,8 +99,7 @@ class MapsFragment : Fragment() {
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
                 mapFragment?.getMapAsync(callback)
             }
-            else
-            {
+            else {
                 Toast.makeText(requireContext(), "Permiso denegado", Toast.LENGTH_SHORT).show()
             }
         }
@@ -115,7 +113,10 @@ class MapsFragment : Fragment() {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
 
-    // Getting last known location
+    /**
+     * Obtiene la ultima ubicacion conocida,
+     * si no exieste alguna, hace una peticion para obtener la ultima ubicacion mas reciente
+     */
     private fun getLastLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         if (ActivityCompat.checkSelfPermission(
@@ -128,16 +129,11 @@ class MapsFragment : Fragment() {
         ) {
             getLocationPermission()
         }
-        /*fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
-                // Got last known location. In some rare situations this can be null.
-                if (location != null)
-                {
-                    val latLng: LatLng = LatLng(location.latitude, location.longitude)
-                    updateLocation(latLng)
-                }
-            }*/
-        val currentLocationRequest = CurrentLocationRequest.Builder().build()
+        val currentLocationRequest = CurrentLocationRequest.Builder()
+            .setDurationMillis(5000)
+            .setMaxUpdateAgeMillis(0)
+            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+            .build()
         fusedLocationClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener { location : Location? ->
             if (location != null)
             {
@@ -146,10 +142,15 @@ class MapsFragment : Fragment() {
             }
         }
     }
+
+    /**
+     * hace una peticion para obtener la ubicacion mas reciente en un tiempo determidad en un numero
+     * determinado de veces
+     */
     private  fun getCurrentLocation()
     {
         try {
-            mMap?.isMyLocationEnabled = true
+            mMap.isMyLocationEnabled = true
             val locationRequest = LocationRequest.create()
             locationRequest.priority =  Priority.PRIORITY_HIGH_ACCURACY
             locationRequest.interval = 3000
@@ -175,10 +176,10 @@ class MapsFragment : Fragment() {
             var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             var message:String = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
             builder.setTitle(R.string.app_name).setMessage(message)
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setCancelable(false)
+            builder.setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                val intent1 = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent1)
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
             }
             builder.create().show()
         }
@@ -208,15 +209,15 @@ class MapsFragment : Fragment() {
     private fun updateLocation(latLng: LatLng) {
         var name = FirebaseAuth.getInstance().currentUser?.displayName
         if (name == null) name = "Cliente"
-        mMap?.clear()
+        mMap.clear()
         val markerOptions:MarkerOptions = MarkerOptions()
         markerOptions.title("$name")
         markerOptions.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_delivery_man))
         markerOptions.draggable(true)
         markerOptions.position(latLng)
-        mMap?.addMarker(markerOptions)
-        mMap?.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
+        mMap.addMarker(markerOptions)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
     }
 
     override fun onCreateView(

@@ -9,30 +9,23 @@ import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.yerbabuena.classes.Ubicacion
 import com.example.yerbabuena.classes.Usuario
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.GetSignInIntentRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.FirebaseApp
-import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-import com.google.firebase.auth.FacebookAuthProvider
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 
@@ -57,18 +50,13 @@ class LoginActivity : AppCompatActivity() {
         val signin = findViewById<Button>(R.id.SignIn)
         val signup = findViewById<Button>(R.id.SignUp)
 
-        FirebaseApp.initializeApp(/*context=*/this)
-        val firebaseAppCheck = FirebaseAppCheck.getInstance()
-        firebaseAppCheck.installAppCheckProviderFactory(
-            DebugAppCheckProviderFactory.getInstance()
-        )
         /// Initialize Firebase Auth
         auth = Firebase.auth
         // Initialize Facebook Login button
         callbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(loginResult: LoginResult) {
-                handleFacebookAccessToken(loginResult.accessToken)
+            override fun onSuccess(result: LoginResult) {
+                handleFacebookAccessToken(result.accessToken)
             }
 
             override fun onCancel() {
@@ -103,22 +91,17 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private  fun updateUserInfo(task: Task<AuthResult>)
+    private  fun updateUserInfo(userInfo: FirebaseUser?)
     {
-        var ref = Firebase.database.getReference("/Usuarios")
-        ref =  ref.child(task.result.user!!.uid)
+        val ref = Firebase.database.getReference("/Usuarios").child(userInfo!!.uid)
         ref.get().addOnSuccessListener {
-            val user = Usuario()
-            user.name = task.result.user!!.displayName
-            user.surname = ""
-            user.email = task.result.user!!.email
-            user.phone = task.result.user!!.phoneNumber
-            user.location = Ubicacion(0.0, 0.0)
-            val usuario = it.getValue<Usuario>()
-            if (usuario == null && usuario?.role == null) {
-                user.role = getString(R.string.default_role)
-            }
-            ref.setValue(user)
+            var usuario = it.getValue<Usuario>()
+            if (usuario == null) usuario = Usuario()
+            usuario.name = userInfo.displayName
+            usuario.surname = ""
+            usuario.email = userInfo.email
+            usuario.phone = userInfo.phoneNumber
+            ref.setValue(usuario)
         }
     }
 
@@ -129,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    updateUserInfo(task)
+                    updateUserInfo(task.result.user)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
@@ -163,7 +146,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    updateUserInfo(task)
+                    updateUserInfo(task.result.user)
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
@@ -208,7 +191,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Couldn't start One Tap UI: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             }
-            .addOnFailureListener(this) { e ->
+            .addOnFailureListener(this) { _ ->
                 // No Google Accounts found. Just continue presenting the signed-out UI.
                 //Log.d(TAG, e.localizedMessage)
             }
@@ -240,7 +223,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 launchSignIn(result.pendingIntent)
             }
-            .addOnFailureListener { e ->
+            .addOnFailureListener { _ ->
                 // No saved credentials found. Launch the One Tap sign-up flow, or
                 // do nothing and continue presenting the signed-out UI.
                 oneTapSignUp()

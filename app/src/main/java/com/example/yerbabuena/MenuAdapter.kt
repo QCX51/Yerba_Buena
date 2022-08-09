@@ -46,7 +46,7 @@ class MenuAdapter(options: FirebaseRecyclerOptions<Menus>) : FirebaseRecyclerAda
         holder.itemShopping.setOnClickListener{
             var builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
             builder.setTitle(R.string.app_name).setMessage("des: ${holder.itemDetail.text}")
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
             }
             builder.create().show()

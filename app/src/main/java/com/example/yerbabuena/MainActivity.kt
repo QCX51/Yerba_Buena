@@ -9,16 +9,21 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.yerbabuena.classes.Usuario
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,24 +33,24 @@ class MainActivity : AppCompatActivity() {
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
-        val toolbar: Toolbar = findViewById<Toolbar>(R.id.toolbar);
-        setSupportActionBar(findViewById<Toolbar>(R.id.toolbar))
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         drawerLayout = findViewById(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         toggle.syncState()
     }
 
-    private fun switchNavMenu(id: Int, role: String?)
+    private fun switchNavMenu(menuId: Int, role: String?, name: String?)
     {
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        navigationView.inflateMenu(id)
+        navigationView.inflateMenu(menuId)
         val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
         var headerTitle = view.findViewById<TextView>(R.id.header_title)
         var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
 
         // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
         headerTitle.text = role
-        headerSubtitle.text = Firebase.auth.currentUser!!.displayName
+        headerSubtitle.text = name?.replaceAfter(" ", "")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,27 +58,36 @@ class MainActivity : AppCompatActivity() {
         this.supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
+        FirebaseApp.initializeApp(this)
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(
+            DebugAppCheckProviderFactory.getInstance()
+        )
+
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        // Limpia el menu de navegacion actual para mostrar la del repartidor | administrador
+        // Limpia el menu de navegacion actual
         navigationView.menu.clear()
-        // Remueve el encabezado del cliente para poder mostar la del repartidor | administrador
+        // Remueve el encabezado del menu de navegacion
         navigationView.removeHeaderView(navigationView.getHeaderView(0))
 
         val ref = Firebase.database.getReference("/Usuarios")
         ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
             var usuario = it.getValue<Usuario>()
-            if (usuario != null && usuario.role == "Administrador") {
-                switchNavMenu(R.menu.administrador_navigation_drawer, usuario?.role)
+            if (usuario != null &&
+                usuario.role?.contains("Administrador", true) == true) {
+                switchNavMenu(R.menu.administrador_navigation_drawer, usuario.role, usuario.name)
             }
-            else if (usuario != null && usuario.role == "Repartidor") {
-                switchNavMenu(R.menu.repartidor_navigation_drawer, usuario?.role)
+            else if (usuario != null &&
+                usuario.role?.contains("Repartidor", true) == true) {
+                switchNavMenu(R.menu.repartidor_navigation_drawer, usuario.role, usuario.name)
             }
             else {
-                switchNavMenu(R.menu.client_navigation_drawer, usuario?.role)
+                val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+                navigationView.inflateMenu(R.menu.client_navigation_drawer)
+                val view = navigationView.inflateHeaderView(R.layout.nav_header)
             }
         }
 
-        //var fragment = HomeFragment()
         val fragment = MapsFragment()
         supportFragmentManager
             .beginTransaction()
@@ -160,8 +174,7 @@ class MainActivity : AppCompatActivity() {
                     title = it.title
                     logout()
                     onBackPressed()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                     true
                 }

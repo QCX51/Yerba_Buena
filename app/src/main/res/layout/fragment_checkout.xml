@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".CheckoutView2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/PaymentMethodTitle"
+            android:layout_width="325dp"
+            android:layout_height="37dp"
+            android:text="Modo de pago"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.27"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:pa="230dp" />
+
+        <Spinner
+            android:id="@+id/Spinner_Method_Checkout"
+            android:layout_width="324dp"
+            android:layout_height="48dp"
+            android:contentDescription="@string/codela"
+            android:spinnerMode="dropdown"
+            android:tooltipText=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="322dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView3"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="always"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_payment" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnBack"
+                android:layout_width="128dp"
+                android:layout_height="58dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="108dp"
+                android:backgroundTint="@color/gray"
+                android:enabled="true"
+                android:onClick="Back"
+                android:text="Atras"
+                android:textColor="@color/white"
+                tools:ignore="MissingConstraints,OnClick" />
+
+            <Space
+                android:layout_width="26dp"
+                android:layout_height="55dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btnToPay"
+                android:layout_width="128dp"
+                android:layout_height="58dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="108dp"
+                android:backgroundTint="@color/CreateAccount"
+                android:enabled="true"
+                android:onClick="ToPay"
+                android:text="pagar"
+                android:textColor="@color/white"
+                tools:ignore="MissingConstraints,OnClick" />
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="65dp"
+            android:paddingTop="170dp"
+            android:paddingRight="65dp"
+            tools:ignore="MissingConstraints">
+
+            <EditText
+                android:id="@+id/FieldNameCheckOut"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:hint="Ingresa tu nombre"
+                android:inputType="text"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/FieldSurnamesCheckout"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:hint="Ingrese tus apellidos"
+                android:inputType="text"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/FieldCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:hint="Numero de tarjeta"
+                android:inputType="text"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/FieldExpirationDate"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:hint="Fecha de vencimiento"
+                android:inputType="text"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/FieldCvc"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_centerHorizontal="true"
+                android:hint="CVC"
+                android:inputType="text"
+                tools:ignore="MissingConstraints" />
+
+
+        </LinearLayout>-->
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

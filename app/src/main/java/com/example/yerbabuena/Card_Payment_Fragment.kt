@@ -34,7 +34,7 @@ class Card_Payment_Fragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_card__payment_, container, false)
+        return inflater.inflate(R.layout.fragment_card_payment, container, false)
     }
 
     companion object {

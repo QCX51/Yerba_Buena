@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_payment"
+    app:startDestination="@id/cash_Payment_Fragment">
+
+    <fragment
+        android:id="@+id/cash_Payment_Fragment"
+        android:name="com.example.yerbabuena.Cash_Payment_Fragment"
+        android:label="fragment_cash__payment_"
+        tools:layout="@layout/fragment_cash_payment" >
+        <action
+            android:id="@+id/action_cash_Payment_Fragment_to_card_Payment_Fragment"
+            app:destination="@id/card_Payment_Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/card_Payment_Fragment"
+        android:name="com.example.yerbabuena.Card_Payment_Fragment"
+        android:label="fragment_card__payment_"
+        tools:layout="@layout/fragment_card_payment" />
+</navigation>

@@ -15,12 +15,6 @@
         <!--<item name="android:background">@drawable/facebook_signin_btn</item>-->
     </style>
 
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAlignment">center</item>
-    </style>
-
     <style name="effect">
 
     </style>
@@ -32,7 +26,8 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:textAlignment">center</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
 
