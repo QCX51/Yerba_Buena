@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="95dp"
             android:inputType=""
-            android:text="Tu pago sera en efectivo al momento de la entrega"
+            android:text="@string/InformationForCashPayment"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textSize="20dp"
             tools:ignore="MissingConstraints"
@@ -40,23 +40,23 @@
 
             <TextView
                 android:id="@+id/TotalPriceAtCheckout"
-                android:layout_width="95dp"
+                android:layout_width="65dp"
                 android:layout_height="45dp"
-                android:text="Total $"
+                android:text="Total"
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 tools:ignore="MissingConstraints"
-                tools:pa="230dp" />
+                 />
 
             <TextView
                 android:id="@+id/TotalPrice"
                 android:layout_width="71dp"
                 android:layout_height="45dp"
-                android:text="175"
+                android:text="@string/TotalPrice"
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 tools:ignore="MissingConstraints"
-                tools:pa="230dp" />
+               />
 
         </LinearLayout>
     </LinearLayout>
