@@ -37,6 +37,15 @@ class PedidosFragment : Fragment() {
             startActivity(Intent(requireContext(), R.layout.activity_main::class.java))
         }
 
+        val btnBack = view.findViewById<Button>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val fragment = HomeFragment()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.home_content, fragment, "PEDIDOS")
+                .commit()
+        }
+
         val btnToPay = view.findViewById<Button>(R.id.btnToPay)
         btnToPay.setOnClickListener {
             //var inflater = LayoutInflater.from(requireContext()).inflate(R.layout.activity_main, container, false)
