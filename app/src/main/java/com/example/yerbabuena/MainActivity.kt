@@ -87,10 +87,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val fragment = MapsFragment()
+        val fragment = HomeFragment()
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.home_content, fragment, "MAP")
+            .replace(R.id.home_content, fragment, "HOME")
             .commit()
         navigationView.setCheckedItem(R.id.home)
 
@@ -124,12 +124,6 @@ class MainActivity : AppCompatActivity() {
                     title = it.title
                     true
                 }
-                R.id.test ->
-                {
-                    switchFragment(CheckoutView2())
-                    title = it.title
-                    true
-                }
                 /**
                  * Administrador
                  */
@@ -139,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.admin_employers -> {
-                    switchFragment(PersonalFragment())
+                    //switchFragment(PersonalFragment())
                     title = it.title
                     true
                 }

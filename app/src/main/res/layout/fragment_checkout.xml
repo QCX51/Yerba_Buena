@@ -76,7 +76,6 @@
                 android:layout_marginBottom="108dp"
                 android:backgroundTint="@color/gray"
                 android:enabled="true"
-                android:onClick="Back"
                 android:text="Atras"
                 android:textColor="@color/white"
                 tools:ignore="MissingConstraints,OnClick" />
@@ -94,7 +93,6 @@
                 android:layout_marginBottom="108dp"
                 android:backgroundTint="@color/CreateAccount"
                 android:enabled="true"
-                android:onClick="ToPay"
                 android:text="pagar"
                 android:textColor="@color/white"
                 tools:ignore="MissingConstraints,OnClick" />

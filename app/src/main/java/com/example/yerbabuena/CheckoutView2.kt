@@ -63,9 +63,29 @@ class CheckoutView2 : Fragment() {
                 }
             }
 
+
+
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // Nothing selected
             }
+        }
+
+        val btnToPay = view.findViewById<Button>(R.id.btnToPay)
+        btnToPay.setOnClickListener {
+            val fragment = MapsFragment()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.home_content, fragment, "MAPAS")
+                .commit()
+        }
+
+        val btnBack = view.findViewById<Button>(R.id.btnBack)
+        btnBack.setOnClickListener {
+            val fragment = PedidosFragment()
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.home_content, fragment, "PEDIDOS")
+                .commit()
         }
         return view
     }

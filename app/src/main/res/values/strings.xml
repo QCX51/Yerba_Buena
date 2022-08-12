@@ -15,6 +15,7 @@
     <string name="facebook_client_token">394d155cbe052815c7b00730dded73e2</string>
 
     <!--Messages-->
+    <string name="msg_order_added_success">Tu pedido se ha agregado correctamente</string>
     <string name="msg_request_permission_rationale">Para poder brindarte un mejor servicio %1$s necesita acceder a tu ubicación</string>
     <string name="msg_request_permission">Adquiriendo permisos</string>
     <string name="email_not_verified_message">El correo <b>%1$s</b> aun no ha sido verificado.\n\n¿Deseas recibir un codigo de verificacion ahora?</string>
@@ -78,10 +79,9 @@
     <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este código: </string>
 
     <!--Payment Dropdown Menu-->
-    <string name="Tipos_de_pago">Menu desplegable</string>
-    <string-array name="TiposDePago">
+    <string-array name="tipos_de_pago">
         <item>Efectivo</item>
-        <item>Tarjeta</item>
+        <item>Transferencia</item>
     </string-array>
 
 

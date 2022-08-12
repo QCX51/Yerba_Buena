@@ -12,5 +12,6 @@ data class Usuario(
     var email: String? = null,
     var role: String? = null,
     var location: Ubicacion? = null,
-    var imageuri: String? = null
+    var imageuri: String? = null,
+    var pedido: Pedido? = null
 )

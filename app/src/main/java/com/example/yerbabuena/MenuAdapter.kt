@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yerbabuena.classes.Pedido
 import com.example.yerbabuena.menus.Menus
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MenuAdapter(options: FirebaseRecyclerOptions<Menus>) : FirebaseRecyclerAdapter<Menus, MenuAdapter.ViewHolder>(options) {
 
@@ -43,13 +47,26 @@ class MenuAdapter(options: FirebaseRecyclerOptions<Menus>) : FirebaseRecyclerAda
         holder.itemShopping.setImageResource(R.drawable.shoppingcart)
         holder.itemImage.setImageResource(R.drawable.itemensalda)
 
-        holder.itemShopping.setOnClickListener{
-            var builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
-            builder.setTitle(R.string.app_name).setMessage("des: ${holder.itemDetail.text}")
-            builder.setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
+        holder.itemShopping.setOnClickListener {
+            val pedido = Pedido()
+            pedido.name = model.getName()
+            pedido.description = model.getDescription()
+            pedido.price = model.getPrice()
+            pedido.imageuri = model.getImageUri()
+
+            val userid = Firebase.auth.currentUser?.uid
+            if (userid != null)
+            {
+                val ref = Firebase.database.getReference("Usuarios").child(userid)
+                ref.child("Pedidos").push().setValue(pedido).addOnSuccessListener {
+                    var builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                    builder.setTitle(R.string.app_name).setMessage(R.string.msg_order_added_success)
+                    builder.setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    builder.create().show()
+                }
             }
-            builder.create().show()
         }
     }
 

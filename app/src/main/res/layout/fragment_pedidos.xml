@@ -24,13 +24,12 @@
          />
 
     <TextView
-        android:layout_gravity="bottom|center"
         android:id="@+id/TotalPrice"
         android:layout_width="71dp"
         android:layout_height="38dp"
-        android:layout_marginBottom="140dp"
+        android:layout_gravity="bottom|center"
         android:layout_marginEnd="70dp"
-        android:text="175"
+        android:layout_marginBottom="140dp"
         android:textColor="@color/black"
         android:textSize="26sp" />
 
@@ -39,32 +38,29 @@
         android:layout_width="128dp"
         android:layout_height="58dp"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="60dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="@color/CreateAccount"
-        android:onClick="ToPay"
         android:text="Siguiente"
-        android:textColor="@color/white"
-        />
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/btnBack"
         android:layout_width="128dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="60dp"
+        android:layout_gravity="bottom|start"
         android:layout_marginStart="60dp"
+        android:layout_marginBottom="60dp"
         android:backgroundTint="@color/gray"
-        android:onClick="Back"
         android:text="Atras"
-        android:textColor="@color/white"
-        android:layout_gravity="bottom|start" />
+        android:textColor="@color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addmore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="130dp"
         android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_add_product"
-        />
+        android:layout_marginBottom="130dp"
+        android:src="@drawable/ic_add_product" />
 </FrameLayout>

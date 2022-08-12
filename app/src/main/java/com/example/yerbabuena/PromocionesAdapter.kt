@@ -7,8 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yerbabuena.classes.Pedido
+import com.example.yerbabuena.menus.Promociones
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class PromocionesAdapter : RecyclerView.Adapter<PromocionesAdapter.ViewHolder>() {
+class PromocionesAdapter(options: FirebaseRecyclerOptions<Promociones>) : FirebaseRecyclerAdapter<Promociones, PromocionesAdapter.ViewHolder>(options) {
     val titles = arrayOf(
         "Comida",
         "Ensalada",
@@ -41,19 +45,6 @@ class PromocionesAdapter : RecyclerView.Adapter<PromocionesAdapter.ViewHolder>()
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        viewHolder.textTitle.text = titles[i]
-        viewHolder.textDes.text = details[i]
-        viewHolder.itemshare.setImageResource(shares[i])
-        viewHolder.itemshopping.setImageResource(shopings[i])
-        viewHolder.image.setImageResource(images[i])
-    }
-
-    override fun getItemCount(): Int {
-        return titles.size
-
-    }
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var image: ImageView
         var textTitle: TextView
@@ -69,5 +60,13 @@ class PromocionesAdapter : RecyclerView.Adapter<PromocionesAdapter.ViewHolder>()
             textDes = itemView.findViewById(R.id.itemDetail)
             itemshopping = itemView.findViewById(R.id.shopping)
         }
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Promociones) {
+        holder.textTitle.text = model.getName()
+        holder.textDes.text = model.getDescription()
+        holder.itemshare.setImageResource(R.drawable.share)
+        holder.itemshopping.setImageResource(R.drawable.shoppingcart)
+        holder.image.setImageResource(R.drawable.itemensalda)
     }
 }

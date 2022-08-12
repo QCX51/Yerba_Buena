@@ -25,7 +25,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.YerbaBuena"
-        android:name="androidx.multidex.MultiDexApplication"
         tools:targetApi="31">
 
         <meta-data
