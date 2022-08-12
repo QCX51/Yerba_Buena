@@ -75,7 +75,7 @@
     <!--Instructions For Card Payment-->
     <string name="InformationForCashPayment">Tu pago sera en efectivo al momento de la entrega</string>
 
-    <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este codigo: </string>
+    <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este código: </string>
 
     <!--Payment Dropdown Menu-->
     <string name="Tipos_de_pago">Menu desplegable</string>
@@ -87,5 +87,16 @@
 
     <!--Total Price To Pay-->
     <string name="TotalPrice"> <a name="Value">$</a>175 </string>
+
+
+    <!--staff list information-->
+    <string name="StaffName"></string>
+    <string name="StaffPhoneString"><a name="Phone">Teléfono: </a>7721096090 </string>
+    <string name="StaffAddressString"><a name="Address">Domicilio: </a>Ixmiquilpan, Hidalgo, Mèxico </string>
+
+
+
+
+
 
 </resources>
