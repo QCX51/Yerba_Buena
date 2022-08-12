@@ -3,13 +3,13 @@ package com.example.yerbabuena
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -17,13 +17,12 @@ import com.example.yerbabuena.classes.Usuario
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-
-import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -145,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.admin_clients -> {
-                    switchFragment(ClientesFragment())
+                    View(ClientesFragment())
                     title = it.title
                     true
                 }
