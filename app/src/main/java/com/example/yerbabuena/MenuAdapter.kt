@@ -17,7 +17,7 @@ import com.google.firebase.ktx.Firebase
 
 class MenuAdapter(options: FirebaseRecyclerOptions<Menus>) : FirebaseRecyclerAdapter<Menus, MenuAdapter.ViewHolder>(options) {
 
-    private lateinit var view: ViewGroup;
+    private lateinit var view: ViewGroup
     override fun onDataChanged() {
     }
 

@@ -1,5 +1,6 @@
 package com.example.yerbabuena
 
+import android.app.AlertDialog
 import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,13 @@ import com.example.yerbabuena.classes.Pedido
 import com.example.yerbabuena.menus.Promociones
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class PromocionesAdapter(options: FirebaseRecyclerOptions<Promociones>) : FirebaseRecyclerAdapter<Promociones, PromocionesAdapter.ViewHolder>(options) {
+    private lateinit var view: ViewGroup;
+
     val titles = arrayOf(
         "Comida",
         "Ensalada",
@@ -40,6 +46,7 @@ class PromocionesAdapter(options: FirebaseRecyclerOptions<Promociones>) : Fireba
 
     )
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
+        view = viewGroup
         val v =
             LayoutInflater.from(viewGroup.context).inflate(R.layout.card_promociones, viewGroup, false)
         return ViewHolder(v)
@@ -68,5 +75,14 @@ class PromocionesAdapter(options: FirebaseRecyclerOptions<Promociones>) : Fireba
         holder.itemshare.setImageResource(R.drawable.share)
         holder.itemshopping.setImageResource(R.drawable.shoppingcart)
         holder.image.setImageResource(R.drawable.itemensalda)
+
+        holder.itemshopping.setOnClickListener {
+            val pedido = Pedido()
+            pedido.name = model.getName()
+            pedido.description = model.getDescription()
+            pedido.price = model.getPrice()
+            //pedido.imageuri = model.getImageUri()
+
+        }
     }
 }

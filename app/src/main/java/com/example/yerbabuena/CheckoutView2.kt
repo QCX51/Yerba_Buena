@@ -42,6 +42,11 @@ class CheckoutView2 : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item,
             resources.getStringArray(R.array.tipos_de_pago))
 
+        //val v = inflater.inflate(R.layout.fragment_pedidos, container, false)
+        //v.findViewById<TextView>(R.id.TotalPrice)
+
+
+
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object:
             AdapterView.OnItemSelectedListener {
