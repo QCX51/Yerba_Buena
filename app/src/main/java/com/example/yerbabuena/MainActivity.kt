@@ -3,6 +3,7 @@ package com.example.yerbabuena
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -10,10 +11,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.yerbabuena.classes.Usuario
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
@@ -27,7 +30,7 @@ import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout:DrawerLayout
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -44,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
         navigationView.inflateMenu(menuId)
         val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
-        var headerTitle = view.findViewById<TextView>(R.id.header_title)
-        var headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
+        val headerTitle = view.findViewById<TextView>(R.id.header_title)
+        val headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
 
         // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
         headerTitle.text = role
@@ -64,35 +67,48 @@ class MainActivity : AppCompatActivity() {
         )
 
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
+
+        /*
         // Limpia el menu de navegacion actual
         navigationView.menu.clear()
         // Remueve el encabezado del menu de navegacion
         navigationView.removeHeaderView(navigationView.getHeaderView(0))
 
-        val ref = Firebase.database.getReference("/Usuarios")
+        var ref = Firebase.database.getReference("/Usuarios/Administradores")
         ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
             var usuario = it.getValue<Usuario>()
-            if (usuario != null &&
-                usuario.role?.contains("Administrador", true) == true) {
-                switchNavMenu(R.menu.administrador_navigation_drawer, usuario.role, usuario.name)
-            }
-            else if (usuario != null &&
-                usuario.role?.contains("Repartidor", true) == true) {
-                switchNavMenu(R.menu.repartidor_navigation_drawer, usuario.role, usuario.name)
+            if (usuario != null) {
+                switchNavMenu(R.menu.administrador_navigation_drawer, "Administrador", usuario.name)
             }
             else {
-                val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-                navigationView.inflateMenu(R.menu.client_navigation_drawer)
-                val view = navigationView.inflateHeaderView(R.layout.nav_header)
+                ref = Firebase.database.getReference("/Usuarios/Personal")
+                ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
+                    var usuario = it.getValue<Usuario>()
+                    if (usuario != null) {
+                        switchNavMenu(R.menu.repartidor_navigation_drawer, "Repartidor", usuario.name)
+                    }
+                }
             }
         }
 
-        val fragment = HomeFragment()
+        ref = Firebase.database.getReference("/Usuarios/Clientes")
+        ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
+            var usuario = it.getValue<Usuario>()
+            if (usuario != null) {
+                navigationView.inflateMenu(R.menu.client_navigation_drawer)
+                val view = navigationView.inflateHeaderView(R.layout.nav_header)
+            }
+        }*/
+
+
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.home_content, fragment, "HOME")
+            .replace(R.id.home_content, MapsFragment(), "MAPS")
             .commit()
-        navigationView.setCheckedItem(R.id.home)
+
+        //val menuitem: MenuItem? = navigationView.checkedItem
+        //if (menuitem != null) navigationView.menu[0].title = menuitem.title
+        //navigationView.setCheckedItem(R.id.home)
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -133,12 +149,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.admin_employers -> {
-                    //switchFragment(PersonalFragment())
+                    switchFragment(PersonalFragment())
                     title = it.title
                     true
                 }
                 R.id.admin_clients -> {
-                    View(ClientesFragment())
+                    switchFragment(ClientesFragment())
                     title = it.title
                     true
                 }
@@ -196,6 +212,7 @@ class MainActivity : AppCompatActivity() {
     private fun logout() {
         // Firebase sign out
         Firebase.auth.signOut()
+        LoginManager.getInstance().logOut()
         // Google sign out
         val signInClient = Identity.getSignInClient(this)
         signInClient.signOut().addOnCompleteListener {

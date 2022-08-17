@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_order_process"
+    app:startDestination="@id/pedidosRcvFragment">
+
+    <fragment
+        android:id="@+id/checkoutView2"
+        android:name="com.example.yerbabuena.CheckoutView2"
+        android:label="fragment_checkout"
+        tools:layout="@layout/fragment_checkout" >
+        <action
+            android:id="@+id/action_checkoutView2_to_ubicacionFragment"
+            app:destination="@id/ubicacionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ubicacionFragment"
+        android:name="com.example.yerbabuena.UbicacionFragment"
+        android:label="fragment_ubicacion"
+        tools:layout="@layout/fragment_ubicacion" />
+    <fragment
+        android:id="@+id/pedidosRcvFragment"
+        android:name="com.example.yerbabuena.PedidosRcvFragment"
+        android:label="fragment_pedidos_rcv"
+        tools:layout="@layout/fragment_pedidos_rcv" >
+        <action
+            android:id="@+id/action_pedidosRcvFragment_to_checkoutView2"
+            app:destination="@id/checkoutView2" />
+    </fragment>
+</navigation>

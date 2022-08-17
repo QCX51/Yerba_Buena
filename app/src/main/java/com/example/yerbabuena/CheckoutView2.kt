@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -19,7 +18,6 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class CheckoutView2 : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -42,11 +40,6 @@ class CheckoutView2 : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item,
             resources.getStringArray(R.array.tipos_de_pago))
 
-        //val v = inflater.inflate(R.layout.fragment_pedidos, container, false)
-        //v.findViewById<TextView>(R.id.TotalPrice)
-
-
-
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object:
             AdapterView.OnItemSelectedListener {
@@ -67,30 +60,9 @@ class CheckoutView2 : Fragment() {
                     }
                 }
             }
-
-
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 // Nothing selected
             }
-        }
-
-        val btnToPay = view.findViewById<Button>(R.id.btnToPay)
-        btnToPay.setOnClickListener {
-            val fragment = MapsFragment()
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.home_content, fragment, "MAPAS")
-                .commit()
-        }
-
-        val btnBack = view.findViewById<Button>(R.id.btnBack)
-        btnBack.setOnClickListener {
-            val fragment = PedidosFragment()
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.home_content, fragment, "PEDIDOS")
-                .commit()
         }
         return view
     }

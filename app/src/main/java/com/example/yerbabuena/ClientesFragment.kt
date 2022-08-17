@@ -5,51 +5,39 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.yerbabuena.classes.Usuario
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_clientes.*
 
-class ClientesFragment : AppCompatActivity() {
+class ClientesFragment : Fragment () {
 
-    fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?{
-        super.onCreate(savedInstanceState)
-        val view: View = inflater.inflate(R.layout.fragment_promociones, container, false)
+    private lateinit var adapter: PersonalAdapter
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_clientes, container, false)
+        val database = Firebase.database
+        val myRef = database.getReference("Usuarios/Clientes")
 
-        val cliente1 = list_cliente(
-            "Aurora",
-        "7721451221",
-        R.drawable.itemensalda
+        // Inflate the layout for this fragment
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rcv_clientes)
 
-        )
-        val cliente2 = list_cliente(
-            "Aurora",
-            "7721451221",
-            R.drawable.itemensalda
+        val options = FirebaseRecyclerOptions.Builder<Usuario>()
+        options.setQuery(myRef, Usuario::class.java)
+        options.setLifecycleOwner(this)
 
-        )
-        val cliente3 = list_cliente(
-            "Aurora",
-            "7721451221",
-            R.drawable.itemensalda
+        adapter = PersonalAdapter(options.build())
 
-        )
-        val cliente4 = list_cliente(
-            "Aurora",
-            "7721451221",
-            R.drawable.itemensalda
-
-        )
-        val cliente5 = list_cliente(
-            "Aurora",
-            "7721451221",
-            R.drawable.itemensalda
-
-        )
-
-val clienteList= arrayListOf(cliente1,cliente2,cliente3,cliente4,cliente5)
-        val adapter =listclienteadapter(this,
-            clienteList)
-
-        listclientes.adapter=adapter
-
+        recyclerView.layoutManager = LinearLayoutManager (view.context)
+        recyclerView.adapter = adapter
+        return view
         return view
     }
 }

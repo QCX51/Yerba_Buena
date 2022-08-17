@@ -5,32 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerInParent="true"
-    tools:context=".MainActivity">
+    tools:context=".MenuFragment">
 
 
-
-    <TextView
-        android:layout_margin="15dp"
-        android:id="@+id/menudia"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hoy"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    </TextView>
+        <TextView
+            android:id="@+id/menudia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hoy"
+            android:textColor="@color/black"
+            android:textSize="18sp">
 
+        </TextView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/menudia"
-        android:background="@color/white"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_menu_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        app:layout_constraintTop_toBottomOf="@+id/menudia" />
+            />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

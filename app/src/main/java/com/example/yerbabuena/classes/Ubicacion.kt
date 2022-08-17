@@ -4,6 +4,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
 data class Ubicacion(
-    var latitud: Double? = null,
-    var longitud: Double? = null
+    var latitude: Double? = null,
+    var longitude: Double? = null
 )

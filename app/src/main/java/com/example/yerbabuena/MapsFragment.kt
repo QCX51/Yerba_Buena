@@ -1,6 +1,7 @@
 package com.example.yerbabuena
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -15,10 +16,13 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
 
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.GoogleMap
@@ -30,21 +34,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.firebase.auth.FirebaseAuth
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class MapsFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var lastLocation: Location
-    private lateinit var currentLocation: Location
+    private lateinit var locationRequest: LocationRequest
     private lateinit var mMap: GoogleMap
-    private var zoom:Float = 14.0F
+    private var zoom: Float = 14.0F
 
     private var pickUpMarker: Marker? = null
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var fusedLocationClient: FusedLocationProviderClient? = null
 
     /**
      * Actualiza la ubicacion con las nuevas coordenadas obtenidas por el sensor GPS
@@ -63,7 +61,7 @@ class MapsFragment : Fragment() {
      */
     override fun onDestroy() {
         super.onDestroy()
-        fusedLocationClient.removeLocationUpdates(locationCallBack)
+        fusedLocationClient?.removeLocationUpdates(locationCallBack)
     }
 
     // Este Callback se dispara cuando el mapa este listo para su uso
@@ -79,12 +77,27 @@ class MapsFragment : Fragment() {
         googleMap.setOnCameraMoveListener {
             zoom = googleMap.cameraPosition.zoom
         }
+
         mMap = googleMap
         mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
         zoom = googleMap.maxZoomLevel - 3F
-        getCurrentLocation()
-        //getLastLocation()
+
+        requestLocationUpdates()
     }
+
+    private val resolutionForResult =
+        registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
+            if (activityResult.resultCode == Activity.RESULT_OK) {
+                try {
+                    fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+                    fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+                    Toast.makeText(requireContext(), "GPS Enabled", Toast.LENGTH_SHORT).show()
+                } catch (ex: SecurityException)
+                {
+                    Toast.makeText(requireContext(), ex.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
     /**
      * Muestra una peticion al usuario para que conceda los permisos de acceder a su ubicacion actual
@@ -101,6 +114,20 @@ class MapsFragment : Fragment() {
             }
             else {
                 Toast.makeText(requireContext(), "Permiso denegado", Toast.LENGTH_SHORT).show()
+                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                        Manifest.permission.ACCESS_FINE_LOCATION))  {
+                    var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                    var message = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
+                    builder.setTitle(getString(R.string.app_name)).setMessage(message)
+                    builder.setPositiveButton("OK") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    //Show permission explanation dialog...
+                    builder.create().show()
+                } else {
+                    //Never ask again selected, or device policy prohibits the app from having that permission.
+                    //So, disable that feature, or fall back to another situation...
+                }
             }
         }
 
@@ -130,11 +157,12 @@ class MapsFragment : Fragment() {
             getLocationPermission()
         }
         val currentLocationRequest = CurrentLocationRequest.Builder()
-            .setDurationMillis(5000)
-            .setMaxUpdateAgeMillis(0)
+            .setDurationMillis(10000) // 10 Milliseconds
+            .setMaxUpdateAgeMillis(0) // Only freshly derived locations
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
             .build()
-        fusedLocationClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener { location : Location? ->
+
+        fusedLocationClient?.getCurrentLocation(currentLocationRequest, null)?.addOnSuccessListener { location : Location? ->
             if (location != null)
             {
                 val latLng = LatLng(location.latitude, location.longitude)
@@ -155,9 +183,9 @@ class MapsFragment : Fragment() {
             locationRequest.priority =  Priority.PRIORITY_HIGH_ACCURACY
             locationRequest.interval = 3000
             //locationRequest.fastestInterval = 5000
-            //locationRequest.numUpdates = 3
+            locationRequest.numUpdates = 3
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallBack, null)
+            fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
         }
         catch (ex:SecurityException)
         {
@@ -171,18 +199,7 @@ class MapsFragment : Fragment() {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
-        if (!isLocationEnabled())
-        {
-            var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            var message:String = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
-            builder.setTitle(R.string.app_name).setMessage(message)
-            builder.setCancelable(false)
-            builder.setPositiveButton("OK") { dialog, _ ->
-                dialog.dismiss()
-                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-            }
-            builder.create().show()
-        }
+
         if (ContextCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED) {
@@ -190,16 +207,6 @@ class MapsFragment : Fragment() {
             //    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
             Toast.makeText(requireContext(), "${R.string.msg_request_permission}", Toast.LENGTH_SHORT).show()
             permReqLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-        } else if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION))  {
-            var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            var message = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
-            builder.setTitle(getString(R.string.app_name)).setMessage(message)
-            builder.setPositiveButton("OK") { dialog, _ ->
-                permReqLauncher.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-                dialog.dismiss()
-            }
-            builder.create().show()
         } else {
             val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
             mapFragment?.getMapAsync(callback)
@@ -212,7 +219,7 @@ class MapsFragment : Fragment() {
         mMap.clear()
         val markerOptions:MarkerOptions = MarkerOptions()
         markerOptions.title("$name")
-        markerOptions.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_delivery_man))
+        //markerOptions.icon(bitmapDescriptorFromVector(requireContext(), R.drawable.ic_delivery_man))
         markerOptions.draggable(true)
         markerOptions.position(latLng)
         mMap.addMarker(markerOptions)
@@ -220,12 +227,8 @@ class MapsFragment : Fragment() {
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        arguments?.get("param1")
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -234,24 +237,48 @@ class MapsFragment : Fragment() {
         getLocationPermission()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_menu.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MapsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun requestLocationUpdates()
+    {
+        val builder = LocationSettingsRequest.Builder()
+        builder.setAlwaysShow(true)
+        locationRequest = LocationRequest.create().apply {
+            interval = 1000
+            fastestInterval = 500
+            priority = Priority.PRIORITY_HIGH_ACCURACY
+            maxWaitTime = 900
+        }
+        builder.addLocationRequest(locationRequest)
+        val result = LocationServices.getSettingsClient(requireActivity())
+        result.checkLocationSettings(builder.build()).addOnCompleteListener {
+            try {
+                // All location settings are satisfied. The client can initialize location
+                // requests here.
+                it.getResult(ApiException::class.java)
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+                fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+            } catch (ex: ApiException) {
+                when (ex.statusCode)
+                {
+                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
+                        // Location settings are not satisfied. But could be fixed by showing the
+                        // user a dialog.
+                        Toast.makeText(requireContext(), "GPS Request", Toast.LENGTH_SHORT).show()
+                        val resolvable = ex as ResolvableApiException
+                        //resolvable.startResolutionForResult(requireActivity(), 101)
+                        val intentSenderRequest = IntentSenderRequest.Builder(resolvable.resolution).build()
+                        resolutionForResult.launch(intentSenderRequest)
+                    }
+                    LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                        // Location settings are not satisfied. However, we have no way to fix the
+                        // settings so we won't show the dialog.
+                    }
                 }
+            } catch (ex: SecurityException)
+            {
+
             }
+        }
+
     }
 
     private fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {

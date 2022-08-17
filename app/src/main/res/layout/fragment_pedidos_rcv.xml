@@ -3,16 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PromocionesFragment">
-
-
+    tools:context=".PedidosRcvFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_promotions"
+        android:id="@+id/rcv_pedidos"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-
-
-
 </FrameLayout>

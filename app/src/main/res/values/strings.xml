@@ -62,20 +62,19 @@
     <string name="passwords_not_match">Las contraseñas que ingresaste no coinciden</string>
     <string name="invalid_password">La contraseña que ingresaste no es válida.\nDebe contener almenos 8 carácteres con una combinación de números, mayúsculas y carácteres especiáles</string>
     <string name="empty_field">Este campo no debe estar vacío.</string>
-    <string name="title_activity_checkoutview">checkoutview</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--Personal Card-->
+    <string name="personal_username">Nombre: $1$s</string>
+    <string name="personal_userphone">Telefono: $1$s</string>
+    <string name="personal_useremail">Email: $1$s</string>
 
+    <!--Notification Card-->
+    <string name="notification_title">Title</string>
+    <string name="notification_subtitle">Subtitle</string>
+    <string name="notification_body">Body</string>
 
     <!--Instructions For Card Payment-->
     <string name="InformationForCashPayment">Tu pago sera en efectivo al momento de la entrega</string>
-
     <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este código: </string>
 
     <!--Payment Dropdown Menu-->
@@ -84,19 +83,16 @@
         <item>Transferencia</item>
     </string-array>
 
-
     <!--Total Price To Pay-->
-    <string name="TotalPrice"> <a name="Value">$</a>175 </string>
+    <string name="TotalPrice"><b>Total:</b> $ %1$.2f</string>
 
 
     <!--staff list information-->
     <string name="StaffName"></string>
     <string name="StaffPhoneString"><a name="Phone">Teléfono: </a>7721096090 </string>
     <string name="StaffAddressString"><a name="Address">Domicilio: </a>Ixmiquilpan, Hidalgo, Mèxico </string>
-
-
-
-
+    <string name="add_new_item">Agregar menu</string>
+    <string name="add_new_user">Agregar usuario</string>
 
 
 </resources>

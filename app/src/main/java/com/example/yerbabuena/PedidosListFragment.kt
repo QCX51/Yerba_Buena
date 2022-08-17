@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 class PedidosListFragment : Fragment() {
     private var layoutManager: RecyclerView.LayoutManager? =null
     private var adapter: RecyclerView.Adapter<PedidosListAdapter.ViewHolder>? =null
-    val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerView)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_pedidos_list, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerpedidoslist)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rcv_pedidos_list)
 
 
         adapter = PedidosListAdapter()

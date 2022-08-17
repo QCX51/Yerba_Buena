@@ -1,45 +1,46 @@
 package com.example.yerbabuena
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.fragment_staffa_dministration.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.yerbabuena.classes.Usuario
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
-class PersonalFragment : AppCompatActivity (){
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_personal)
+class PersonalFragment : Fragment () {
 
-        val staff1 = objListCustomStaff (
-            "Fernanda",
-        "7721096090",
-        "Tasquillo, Hidalgo, Mexico",
-        R.drawable.img_fernanda_staff_background
-                )
-        val staff2 = objListCustomStaff (
-            "Ana",
-            "7721599870",
-            "Ixmiquilpan, Hidalgo, Mexico",
-            R.drawable.ana
-        )
-        val staff3 = objListCustomStaff (
-            "Clara",
-            "7721111090",
-            "Tasquillo, Hidalgo, Mexico",
-            R.drawable.alara_alvarez
-        )
-        val staff4 = objListCustomStaff (
-            "Griselda",
-            "7721111090",
-            "Tasquillo, Hidalgo, Mexico",
-            R.drawable.griselda
-        )
+    private lateinit var adapter: PersonalAdapter
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_personal, container, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
+        val database = Firebase.database
+        val myRef = database.getReference("Usuarios/Personal")
 
-         val staffList = arrayListOf(staff1,staff2,staff3,staff4)
-         val adapterStaff = listCustomAdapterStaff (this,staffList)
-         listview_staff.adapter = adapterStaff
+        // Inflate the layout for this fragment
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rcv_personal)
 
+        val options = FirebaseRecyclerOptions.Builder<Usuario>()
+        options.setQuery(myRef, Usuario::class.java)
+        options.setLifecycleOwner(this)
+
+        adapter = PersonalAdapter(options.build())
+
+        recyclerView.layoutManager = LinearLayoutManager (view.context)
+        recyclerView.adapter = adapter
+        return view
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.stopListening()
+    }
 }

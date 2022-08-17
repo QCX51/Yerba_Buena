@@ -8,57 +8,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="65dp"
-        android:paddingTop="160dp"
-        android:paddingRight="65dp"
-        tools:ignore="MissingConstraints">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/FirstFragment"
             android:layout_width="wrap_content"
-            android:layout_height="95dp"
+            android:layout_height="wrap_content"
             android:inputType=""
             android:text="@string/InformationForCashPayment"
             android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
             android:textSize="20dp"
-            tools:ignore="MissingConstraints"
-            />
+            tools:ignore="MissingConstraints" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.25dp"
-            android:background="@android:color/darker_gray"
-            tools:ignore="MissingConstraints"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="285dp"
-            android:orientation="horizontal"
-            android:paddingTop="233dp">
-
-            <TextView
-                android:id="@+id/TotalPriceAtCheckout"
-                android:layout_width="65dp"
-                android:layout_height="45dp"
-                android:text="Total"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                tools:ignore="MissingConstraints"
-                 />
-
-            <TextView
-                android:id="@+id/TotalPrice"
-                android:layout_width="71dp"
-                android:layout_height="45dp"
-                android:text="@string/TotalPrice"
-                android:textColor="@color/black"
-                android:textSize="26sp"
-                tools:ignore="MissingConstraints"
-               />
-
-        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

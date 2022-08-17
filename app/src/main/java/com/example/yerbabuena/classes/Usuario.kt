@@ -10,8 +10,18 @@ data class Usuario(
     var surname: String? = null,
     var phone: String? = null,
     var email: String? = null,
-    var role: String? = null,
     var location: Ubicacion? = null,
-    var imageuri: String? = null,
-    var pedido: Pedido? = null
+    var thumbnail: String? = null,
+    var orders: Pedido? = null
 )
+{
+    fun getUsername(): String {
+        return "$name $surname"
+    }
+    fun getPhoneNumber(): String {
+        return "$phone"
+    }
+    fun getEmailAddress(): String {
+        return "$email"
+    }
+}

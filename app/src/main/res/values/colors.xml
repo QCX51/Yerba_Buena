@@ -17,4 +17,10 @@
     <color name="gray">#66798b</color>
     <color name="graySelector">#eceff1</color>
     <color name="green">#357947</color>
+    <color name="add_button">#29AC6A</color>
+
+    <color name="grey">#aaa</color>
+    <color name="button_color">#1E573B</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="red">#F44336</color>
 </resources>

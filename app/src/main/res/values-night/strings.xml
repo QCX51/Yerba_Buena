@@ -5,4 +5,6 @@
     <string name="facebook_app_id">605612360973350</string>
     <string name="fb_login_protocol_scheme">fb605612360973350</string>
     <string name="facebook_client_token">394d155cbe052815c7b00730dded73e2</string>
+    <string name="add_new_item">Agregar menu</string>
+    <string name="add_new_user">Agregar usuario</string>
 </resources>

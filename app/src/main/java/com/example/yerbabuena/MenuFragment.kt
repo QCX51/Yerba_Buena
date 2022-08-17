@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yerbabuena.menus.Menus
-import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.example.yerbabuena.classes.Menu
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -38,9 +37,10 @@ class MenuFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_menu, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        val options = FirebaseRecyclerOptions.Builder<Menus>()
-        options.setQuery(myRef, Menus::class.java)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rcv_menu_list)
+
+        val options = FirebaseRecyclerOptions.Builder<Menu>()
+        options.setQuery(myRef, Menu::class.java)
         options.setLifecycleOwner(this)
 
         adapter = MenuAdapter(options.build())
@@ -48,17 +48,11 @@ class MenuFragment : Fragment() {
         /*val adapter = object : FirebaseRecyclerAdapter<Menus, ChatHolder>(options) {}*/
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.adapter = adapter
-
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         adapter.stopListening()
     }
 

@@ -1,7 +1,6 @@
 package com.example.yerbabuena
 
 import android.app.AlertDialog
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,42 +8,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yerbabuena.classes.Pedido
-import com.example.yerbabuena.menus.Promociones
+import com.example.yerbabuena.classes.Menu
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class PromocionesAdapter(options: FirebaseRecyclerOptions<Promociones>) : FirebaseRecyclerAdapter<Promociones, PromocionesAdapter.ViewHolder>(options) {
-    private lateinit var view: ViewGroup;
+class PromocionesAdapter(options: FirebaseRecyclerOptions<Menu>) : FirebaseRecyclerAdapter<Menu, PromocionesAdapter.ViewHolder>(options) {
+    private lateinit var view: ViewGroup
 
-    val titles = arrayOf(
-        "Comida",
-        "Ensalada",
-        "Postre"
-    )
-    val details = arrayOf(
-        "Rica ensalada",
-        "Rica ensalada",
-        "Rica ensalada"
-    )
-    val images = arrayOf(
-        R.drawable.itemensalda,
-        R.drawable.itemensalda,
-        R.drawable.itemensalda
-    )
-    val shares = arrayOf(
-        R.drawable.share,
-        R.drawable.share,
-        R.drawable.share
-    )
-    val shopings = arrayOf(
-        R.drawable.shoppingcart,
-        R.drawable.shoppingcart,
-        R.drawable.shoppingcart
-
-    )
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         view = viewGroup
         val v =
@@ -69,20 +42,30 @@ class PromocionesAdapter(options: FirebaseRecyclerOptions<Promociones>) : Fireba
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Promociones) {
-        holder.textTitle.text = model.getName()
-        holder.textDes.text = model.getDescription()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Menu) {
+        holder.textTitle.text = model.name
+        holder.textDes.text = model.description
         holder.itemshare.setImageResource(R.drawable.share)
         holder.itemshopping.setImageResource(R.drawable.shoppingcart)
         holder.image.setImageResource(R.drawable.itemensalda)
 
         holder.itemshopping.setOnClickListener {
             val pedido = Pedido()
-            pedido.name = model.getName()
-            pedido.description = model.getDescription()
-            pedido.price = model.getPrice()
-            //pedido.imageuri = model.getImageUri()
+            pedido.name = model.name
+            pedido.description = model.description
+            pedido.price = model.price
+            pedido.thumbnail = model.thumbnail
 
+            val userid = Firebase.auth.currentUser!!.uid
+            val ref = Firebase.database.getReference("Usuarios").child(userid)
+            ref.child("Pedidos").push().setValue(pedido).addOnSuccessListener {
+                var builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                builder.setTitle(R.string.app_name).setMessage(R.string.msg_order_added_success)
+                builder.setPositiveButton("OK") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                builder.create().show()
+            }
         }
     }
 }

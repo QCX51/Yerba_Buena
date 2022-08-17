@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yerbabuena.classes.Pedido
-import com.example.yerbabuena.menus.Menus
+import com.example.yerbabuena.classes.Menu
 import com.example.yerbabuena.menus.Promociones
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.ktx.auth
@@ -22,21 +21,25 @@ class PromocionesFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_promociones, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclermain)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rcv_promotions)
 
 
-        val options = FirebaseRecyclerOptions.Builder<Promociones>()
+        val options = FirebaseRecyclerOptions.Builder<Menu>()
         val userid = Firebase.auth.currentUser?.uid
         if (userid != null) {
             val ref = Firebase.database.getReference("Menus").child("Promociones")
-            options.setQuery(ref, Promociones::class.java)
+            options.setQuery(ref, Menu::class.java)
             options.setLifecycleOwner(this)
 
             adapter = PromocionesAdapter(options.build())
             recyclerView.layoutManager = LinearLayoutManager(view.context)
             recyclerView.adapter = adapter
         }
-
         return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapter.stopListening()
     }
 }

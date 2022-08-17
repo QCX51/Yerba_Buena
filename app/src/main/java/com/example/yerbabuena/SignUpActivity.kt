@@ -121,7 +121,7 @@ class SignUpActivity : AppCompatActivity() {
         email: String
     ) {
         val ubicacion = Ubicacion(0.0, 0.0)
-        val usuario = Usuario(name, surname, phone, email, getString(R.string.default_role), ubicacion)
+        val usuario = Usuario(name, surname, phone, email, ubicacion)
         val myRef = Firebase.database.getReference("/")
         myRef.child("Usuarios").push().setValue(usuario)
             .addOnFailureListener {

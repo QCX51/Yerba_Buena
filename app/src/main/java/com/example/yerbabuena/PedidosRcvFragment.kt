@@ -5,19 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yerbabuena.classes.Menu
+import com.example.yerbabuena.classes.Pedido
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class HomeFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ * Use the [PedidosRcvFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class PedidosRcvFragment : Fragment() {
 
-    private lateinit var adapter: HomeAdapter
+    private lateinit var adapter: PedidosAdapter
+    private lateinit var recyclerView: RecyclerView
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -33,21 +50,18 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        val database = Firebase.database
-        val myRef = database.getReference("Menus/Home")
-
         // Inflate the layout for this fragment
-        val view:View = inflater.inflate(R.layout.fragment_home, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rcv_home_list)
+        val view: View = inflater.inflate(R.layout.fragment_pedidos_rcv, container, false)
+        recyclerView = view.findViewById(R.id.rcv_pedidos)
 
-        val options = FirebaseRecyclerOptions.Builder<Menu>()
-        options.setQuery(myRef, Menu::class.java)
+        val options = FirebaseRecyclerOptions.Builder<Pedido>()
+        val userid = Firebase.auth.currentUser?.uid
+        val ref = Firebase.database.getReference("Usuarios").child(userid!!).child("Pedidos")
+        options.setQuery(ref, Pedido::class.java)
         options.setLifecycleOwner(this)
 
-        adapter = HomeAdapter(options.build())
-
-        recyclerView.layoutManager = LinearLayoutManager (view.context)
+        adapter = PedidosAdapter(options.build())
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
         recyclerView.adapter = adapter
         return view
     }
@@ -64,12 +78,12 @@ class HomeFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_menu.
+         * @return A new instance of fragment PedidosRcvFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
+            PedidosRcvFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

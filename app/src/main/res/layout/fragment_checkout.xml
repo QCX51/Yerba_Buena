@@ -5,52 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:padding="10dp"
     tools:context=".CheckoutView2">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingTop="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/PaymentMethodTitle"
-            android:layout_width="325dp"
-            android:layout_height="37dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Modo de pago"
             android:textColor="@color/black"
             android:textSize="22sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.27"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints"
             tools:pa="230dp" />
 
         <Spinner
             android:id="@+id/Spinner_Method_Checkout"
-            android:layout_width="324dp"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
             android:contentDescription="@string/codela"
             android:spinnerMode="dropdown"
-            android:tooltipText=""
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:tooltipText="" />
 
         <View
-            android:layout_width="322dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView3"
@@ -61,42 +62,6 @@
             android:overScrollMode="always"
             app:defaultNavHost="true"
             app:navGraph="@navigation/navigation_payment" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="58dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnBack"
-                android:layout_width="128dp"
-                android:layout_height="58dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="108dp"
-                android:backgroundTint="@color/gray"
-                android:enabled="true"
-                android:text="Atras"
-                android:textColor="@color/white"
-                tools:ignore="MissingConstraints,OnClick" />
-
-            <Space
-                android:layout_width="26dp"
-                android:layout_height="55dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/btnToPay"
-                android:layout_width="128dp"
-                android:layout_height="58dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="108dp"
-                android:backgroundTint="@color/CreateAccount"
-                android:enabled="true"
-                android:text="pagar"
-                android:textColor="@color/white"
-                tools:ignore="MissingConstraints,OnClick" />
-        </LinearLayout>
 
         <!--<LinearLayout
             android:layout_width="match_parent"
