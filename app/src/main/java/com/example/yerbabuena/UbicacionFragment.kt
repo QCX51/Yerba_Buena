@@ -33,8 +33,8 @@ import com.google.firebase.auth.FirebaseAuth
 class UbicacionFragment : Fragment() {
 
     private var fusedLocationClient: FusedLocationProviderClient? = null
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var mMap: GoogleMap
+    private lateinit var locationRequest: LocationRequest.Builder
+    private lateinit var googleMap: GoogleMap
     private var zoom:Float = 14.0F
 
     /**
@@ -44,20 +44,24 @@ class UbicacionFragment : Fragment() {
         override fun onLocationResult(result: LocationResult) {
             val location: Location? = result.lastLocation
             if(location != null) {
+                val fragment = activity?.supportFragmentManager?.findFragmentByTag("PedidosFragment") as PedidosFragment
+                fragment.buttonEnable()
                 val latLng = LatLng(location.latitude, location.longitude)
                 updateLocation(latLng)
             }
         }}
 
     /**
-     * Remueve el callback de actualizaciones para la obtencion de la ubicacion
+     * Remueve el callback de actualizaciones: LocationCallback
      */
     override fun onDestroy() {
         super.onDestroy()
         fusedLocationClient?.removeLocationUpdates(locationCallBack)
     }
 
-    // Este Callback se dispara cuando el mapa este listo para su uso
+    /**
+     * Este Callback se dispara una vez que el mapa este listo para su uso
+     */
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -67,26 +71,26 @@ class UbicacionFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        mMap = googleMap
-        mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-        zoom = mMap.maxZoomLevel - 3F
+        this.googleMap = googleMap
+        googleMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+        zoom = googleMap.maxZoomLevel - 3F
         getCurrentLocationUpdates()
     }
-
+    /**
+     *
+     */
     private val resolutionForResult =
         registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { activityResult ->
             if (activityResult.resultCode == RESULT_OK) {
                 try {
                     fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-                    fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+                    fusedLocationClient?.requestLocationUpdates(locationRequest.build(), locationCallBack, null)
                     Toast.makeText(requireContext(), "GPS Enabled", Toast.LENGTH_SHORT).show()
-                }catch (ex: SecurityException)
-                {
+                } catch (ex: SecurityException) {
                     Toast.makeText(requireContext(), ex.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
     /**
      * Muestra una peticion al usuario para que conceda los permisos de acceder a su ubicacion actual
      */
@@ -104,8 +108,8 @@ class UbicacionFragment : Fragment() {
                 Toast.makeText(requireContext(), "Permiso denegado", Toast.LENGTH_SHORT).show()
                 if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
                         Manifest.permission.ACCESS_FINE_LOCATION))  {
-                    var builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-                    var message = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
+                    val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                    val message = getString(R.string.msg_request_permission_rationale, getString(R.string.app_name))
                     builder.setTitle(getString(R.string.app_name)).setMessage(message)
                     builder.setPositiveButton("OK") { dialog, _ ->
                         dialog.dismiss()
@@ -166,13 +170,13 @@ class UbicacionFragment : Fragment() {
     private  fun getCurrentLocation()
     {
         try {
-            locationRequest = LocationRequest.create()
-            locationRequest.priority =  Priority.PRIORITY_HIGH_ACCURACY
-            locationRequest.interval = 3000
-            //locationRequest.fastestInterval = 5000
-            locationRequest.numUpdates = 3
+            locationRequest = LocationRequest.Builder(3000)
+            locationRequest.setMaxUpdates(3)
+            locationRequest.setDurationMillis(3000)
+            locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-            fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+            fusedLocationClient?.requestLocationUpdates(locationRequest.build(), locationCallBack, null)
         }
         catch (ex:SecurityException)
         {
@@ -202,21 +206,21 @@ class UbicacionFragment : Fragment() {
     private fun updateLocation(latLng: LatLng) {
         var name = FirebaseAuth.getInstance().currentUser?.displayName
         if (name == null) name = "Cliente"
-        mMap.clear()
+        googleMap.clear()
         try {
-            mMap.isMyLocationEnabled = false
-            mMap.isTrafficEnabled = false
-            mMap.isIndoorEnabled = false
-            mMap.isBuildingsEnabled = false
+            googleMap.isMyLocationEnabled = false
+            googleMap.isTrafficEnabled = false
+            googleMap.isIndoorEnabled = false
+            googleMap.isBuildingsEnabled = false
         } catch (ex: SecurityException)
         {}
         val markerOptions = MarkerOptions()
         markerOptions.title("$name")
         markerOptions.draggable(true)
         markerOptions.position(latLng)
-        mMap.addMarker(markerOptions)
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
+        googleMap.addMarker(markerOptions)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -225,8 +229,8 @@ class UbicacionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val key = arguments?.get("key") as String
-        Toast.makeText(requireContext(), key, Toast.LENGTH_SHORT).show()
+        /*val key = arguments?.get("key") as String
+        Toast.makeText(requireContext(), key, Toast.LENGTH_SHORT).show()*/
         getLocationPermission()
     }
 
@@ -234,12 +238,12 @@ class UbicacionFragment : Fragment() {
     {
         val builder = LocationSettingsRequest.Builder()
         builder.setAlwaysShow(true)
-        locationRequest = LocationRequest.create().apply {
-            interval = 3000
-            numUpdates = 3
-            priority = Priority.PRIORITY_HIGH_ACCURACY
-        }
-        builder.addLocationRequest(locationRequest)
+        locationRequest = LocationRequest.Builder(3000)
+        locationRequest.setMaxUpdates(3)
+        locationRequest.setDurationMillis(3000)
+        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+
+        builder.addLocationRequest(locationRequest.build())
 
         val result = LocationServices.getSettingsClient(requireActivity())
         result.checkLocationSettings(builder.build()).addOnCompleteListener {
@@ -248,7 +252,7 @@ class UbicacionFragment : Fragment() {
                 // requests here.
                 it.getResult(ApiException::class.java)
                 fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-                fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+                fusedLocationClient?.requestLocationUpdates(locationRequest.build(), locationCallBack, null)
                 Toast.makeText(requireContext(), "GPS Enabled", Toast.LENGTH_SHORT).show()
             } catch (ex: ApiException) {
                 when (ex.statusCode)
@@ -259,7 +263,7 @@ class UbicacionFragment : Fragment() {
                         val resolvable = ex as ResolvableApiException
                         val intentSenderRequest = IntentSenderRequest.Builder(resolvable.resolution).build()
                         resolutionForResult.launch(intentSenderRequest)
-                        Toast.makeText(requireContext(), "GPS Enabled Request", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "GPS Enable Request", Toast.LENGTH_SHORT).show()
                     }
                     LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
                         // Location settings are not satisfied. However, we have no way to fix the

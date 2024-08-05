@@ -12,7 +12,6 @@ import com.example.yerbabuena.classes.Usuario
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_clientes.*
 
 class ClientesFragment : Fragment () {
 
@@ -37,7 +36,6 @@ class ClientesFragment : Fragment () {
 
         recyclerView.layoutManager = LinearLayoutManager (view.context)
         recyclerView.adapter = adapter
-        return view
         return view
     }
 }

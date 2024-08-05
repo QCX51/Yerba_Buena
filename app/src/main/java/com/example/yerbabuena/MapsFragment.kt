@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -13,7 +12,6 @@ import android.location.LocationManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.IntentSenderRequest
@@ -37,7 +35,7 @@ import com.google.firebase.auth.FirebaseAuth
 class MapsFragment : Fragment() {
 
     private lateinit var lastLocation: Location
-    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationRequest: LocationRequest.Builder
     private lateinit var mMap: GoogleMap
     private var zoom: Float = 14.0F
 
@@ -90,7 +88,7 @@ class MapsFragment : Fragment() {
             if (activityResult.resultCode == Activity.RESULT_OK) {
                 try {
                     fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-                    fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+                    fusedLocationClient?.requestLocationUpdates(locationRequest.build(), locationCallBack, null)
                     Toast.makeText(requireContext(), "GPS Enabled", Toast.LENGTH_SHORT).show()
                 } catch (ex: SecurityException)
                 {
@@ -108,9 +106,9 @@ class MapsFragment : Fragment() {
                 it.value
             }
             if (granted) {
-                Toast.makeText(requireContext(), "Permiso concedido", Toast.LENGTH_SHORT).show()
                 val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
                 mapFragment?.getMapAsync(callback)
+                Toast.makeText(requireContext(), "Permiso concedido", Toast.LENGTH_SHORT).show()
             }
             else {
                 Toast.makeText(requireContext(), "Permiso denegado", Toast.LENGTH_SHORT).show()
@@ -179,13 +177,13 @@ class MapsFragment : Fragment() {
     {
         try {
             mMap.isMyLocationEnabled = true
-            val locationRequest = LocationRequest.create()
-            locationRequest.priority =  Priority.PRIORITY_HIGH_ACCURACY
-            locationRequest.interval = 3000
+            val locationRequest = LocationRequest.Builder(LocationRequest.Builder.IMPLICIT_MIN_UPDATE_INTERVAL)
+            locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+            locationRequest.setIntervalMillis(3000)
             //locationRequest.fastestInterval = 5000
-            locationRequest.numUpdates = 3
+            locationRequest.setMaxUpdates(3)
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-            fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+            fusedLocationClient?.requestLocationUpdates(locationRequest.build(), locationCallBack, null)
         }
         catch (ex:SecurityException)
         {
@@ -241,13 +239,12 @@ class MapsFragment : Fragment() {
     {
         val builder = LocationSettingsRequest.Builder()
         builder.setAlwaysShow(true)
-        locationRequest = LocationRequest.create().apply {
-            interval = 1000
-            fastestInterval = 500
-            priority = Priority.PRIORITY_HIGH_ACCURACY
-            maxWaitTime = 900
-        }
-        builder.addLocationRequest(locationRequest)
+        locationRequest = LocationRequest.Builder(LocationRequest.Builder.IMPLICIT_MAX_UPDATE_AGE)
+        locationRequest.setIntervalMillis(1000)
+        locationRequest.setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+        locationRequest.setWaitForAccurateLocation(true)
+
+        builder.addLocationRequest(locationRequest.build())
         val result = LocationServices.getSettingsClient(requireActivity())
         result.checkLocationSettings(builder.build()).addOnCompleteListener {
             try {
@@ -255,7 +252,7 @@ class MapsFragment : Fragment() {
                 // requests here.
                 it.getResult(ApiException::class.java)
                 fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-                fusedLocationClient?.requestLocationUpdates(locationRequest, locationCallBack, null)
+                fusedLocationClient?.requestLocationUpdates(locationRequest.build(), locationCallBack, null)
             } catch (ex: ApiException) {
                 when (ex.statusCode)
                 {

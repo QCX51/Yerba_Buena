@@ -18,8 +18,6 @@ import com.google.firebase.ktx.Firebase
 class MenuAdapter(options: FirebaseRecyclerOptions<Menu>) : FirebaseRecyclerAdapter<Menu, MenuAdapter.ViewHolder>(options) {
 
     private lateinit var view: ViewGroup
-    override fun onDataChanged() {
-    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var itemShare: ImageView
@@ -40,31 +38,33 @@ class MenuAdapter(options: FirebaseRecyclerOptions<Menu>) : FirebaseRecyclerAdap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: Menu) {
-        holder.itemTitle.text = model.name
-        holder.itemDetail.text = model.description
-        holder.itemCount.text = "$${model.price}"
-        holder.itemShare.setImageResource(R.drawable.share)
-        holder.itemShopping.setImageResource(R.drawable.shoppingcart)
-        holder.itemImage.setImageResource(R.drawable.itemensalda)
+        if (position <= holder.bindingAdapter?.itemCount!!) {
+            holder.itemTitle.text = model.name
+            holder.itemDetail.text = model.description
+            holder.itemCount.text = "$${model.price}"
+            holder.itemShare.setImageResource(R.drawable.share)
+            holder.itemShopping.setImageResource(R.drawable.shoppingcart)
+            holder.itemImage.setImageResource(R.drawable.itemensalda)
 
-        holder.itemShopping.setOnClickListener {
-            val pedido = Pedido()
-            pedido.name = model.name
-            pedido.description = model.description
-            pedido.price = model.price
-            pedido.thumbnail = model.thumbnail
+            holder.itemShopping.setOnClickListener {
+                val pedido = Pedido()
+                pedido.name = model.name
+                pedido.description = model.description
+                pedido.price = model.price
+                pedido.thumbnail = model.thumbnail
 
-            val userid = Firebase.auth.currentUser?.uid
-            if (userid != null)
-            {
-                val ref = Firebase.database.getReference("Usuarios").child(userid)
-                ref.child("Pedidos").push().setValue(pedido).addOnSuccessListener {
-                    var builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
-                    builder.setTitle(R.string.app_name).setMessage(R.string.msg_order_added_success)
-                    builder.setPositiveButton("OK") { dialog, _ ->
-                        dialog.dismiss()
+                val userid = Firebase.auth.currentUser?.uid
+                if (userid != null)
+                {
+                    val ref = Firebase.database.getReference("Usuarios").child(userid)
+                    ref.child("Pedidos").push().setValue(pedido).addOnSuccessListener {
+                        var builder: AlertDialog.Builder = AlertDialog.Builder(view.context)
+                        builder.setTitle(R.string.app_name).setMessage(R.string.msg_order_added_success)
+                        builder.setPositiveButton("OK") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        builder.create().show()
                     }
-                    builder.create().show()
                 }
             }
         }

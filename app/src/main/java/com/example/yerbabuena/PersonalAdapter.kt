@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.yerbabuena.classes.Usuario
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import kotlinx.android.synthetic.main.fragment_menu.view.*
-import kotlinx.android.synthetic.main.fragment_personal.view.*
 
 class PersonalAdapter(options: FirebaseRecyclerOptions<Usuario>) : FirebaseRecyclerAdapter<Usuario, PersonalAdapter.ViewHolder>(options) {
 

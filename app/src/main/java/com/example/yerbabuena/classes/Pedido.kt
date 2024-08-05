@@ -9,5 +9,6 @@ data class Pedido (
     var thumbnail: String? = null,
     var price: Double? = null,
     var payment: String? = null,
-    var location: Ubicacion? = null
+    var location: Ubicacion? = null,
+    val timestamp: String? = null
 )

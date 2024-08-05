@@ -1,6 +1,6 @@
 package com.example.yerbabuena
-
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,25 +12,13 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class MenuFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    private lateinit var adapter: MenuAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         val database = Firebase.database
         val myRef = database.getReference("Menus/Menu")
@@ -43,35 +31,21 @@ class MenuFragment : Fragment() {
         options.setQuery(myRef, Menu::class.java)
         options.setLifecycleOwner(this)
 
-        adapter = MenuAdapter(options.build())
-
-        /*val adapter = object : FirebaseRecyclerAdapter<Menus, ChatHolder>(options) {}*/
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
-        recyclerView.adapter = adapter
-        return view
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        adapter.stopListening()
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fragment_menu.
-         */
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val layout = object : LinearLayoutManager(view.context) {
+            override fun onLayoutChildren(
+                recycler: RecyclerView.Recycler?,
+                state: RecyclerView.State?
+            ) {
+                try {
+                    super.onLayoutChildren(recycler, state)
+                }catch (e:IndexOutOfBoundsException) {
+                    Log.println(Log.ERROR, null, e.message!!)
                 }
             }
+        }
+        /*val adapter = object : FirebaseRecyclerAdapter<Menus, ChatHolder>(options) {}*/
+        recyclerView.layoutManager = layout
+        recyclerView.adapter = MenuAdapter(options.build())
+        return view
     }
 }

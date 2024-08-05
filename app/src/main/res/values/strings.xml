@@ -24,35 +24,45 @@
     <string name="email_password_reset_title">Reestablecer contraseña</string>
     <string name="email_password_reset_message">¿Deseas recibir un correo ahora para reestablecer tu contraseña?</string>
     <string name="email_password_reset_sent">Se ha enviado un correo para reestablecer su contraseña.</string>
+    <string name="deleted_item">El articulo ha sido borrado.</string>
+    <string name="recovered_item">El articulo ha sido recuperado.</string>
+    <string name="undo">Deshacer.</string>
+
     <!--Login Buttons-->
     <string name="signin">Iniciar sesión</string>
     <string name="signup">Crear cuenta</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
+
     <!--Toolbar-->
     <string name="search">Buscar</string>
+
     <!-- ****** Menu de navegacion ****** -->
     <string name="logout">Cerrar sesión</string>
     <string name="test">Pago</string>
+
     <!--Encabezado-->
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
+
     <!--Administrador-->
     <string name="products">Productos</string>
     <string name="employes">Personal</string>
     <string name="clients">Clientes</string>
     <string name="reports">Reportes</string>
+
     <!--Repartidor-->
     <string name="delivery">Repartidor</string>
     <string name="orderlist">Lista de pedidos</string>
     <string name="location">Ubicación</string>
+
     <!--Cliente-->
     <string name="home">Inicio</string>
     <string name="menu">Menú</string>
     <string name="promotions">Promociónes</string>
     <string name="orders">Pedidos</string>
     <string name="notifications">Notificaciónes</string>
-    <!-- ******************************** -->
+
     <!--Variables-->
     <string name="default_role">Cliente</string>
     <!--Validaciones-->
@@ -75,7 +85,7 @@
 
     <!--Instructions For Card Payment-->
     <string name="InformationForCashPayment">Tu pago sera en efectivo al momento de la entrega</string>
-    <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a Yerba Buena </b> y presenta este código: </string>
+    <string name="InstructionsForCardPayment">Indicale al cajero que es un <b>pago de servicios a %1$s </b> y presenta este código: </string>
 
     <!--Payment Dropdown Menu-->
     <string-array name="tipos_de_pago">
@@ -85,12 +95,8 @@
 
     <!--Total Price To Pay-->
     <string name="TotalPrice"><b>Total:</b> $ %1$.2f</string>
+    <string name="Price">$ %1$.2f</string>
 
-
-    <!--staff list information-->
-    <string name="StaffName"></string>
-    <string name="StaffPhoneString"><a name="Phone">Teléfono: </a>7721096090 </string>
-    <string name="StaffAddressString"><a name="Address">Domicilio: </a>Ixmiquilpan, Hidalgo, Mèxico </string>
     <string name="add_new_item">Agregar menu</string>
     <string name="add_new_user">Agregar usuario</string>
 

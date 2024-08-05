@@ -1,5 +1,6 @@
 package com.example.yerbabuena
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -61,13 +62,22 @@ class NotificacionesFragment : Fragment() {
                 }
             }
         }
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
+
+        val layout = object : LinearLayoutManager(view.context) {
+            override fun onLayoutChildren(
+                recycler: RecyclerView.Recycler?,
+                state: RecyclerView.State?
+            ) {
+                try {
+                    super.onLayoutChildren(recycler, state)
+                }catch (e:IndexOutOfBoundsException) {
+                    Log.println(Log.ERROR, null, e.message!!)
+                }
+            }
+        }
+
+        recyclerView.layoutManager = layout
         recyclerView.adapter = adapter
         return view
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        adapter.stopListening()
     }
 }

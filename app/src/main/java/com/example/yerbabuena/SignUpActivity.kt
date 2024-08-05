@@ -74,8 +74,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.passwords_not_match, Toast.LENGTH_SHORT).show()
             } else {
                 btnRegister.isEnabled = false
-                signUp(name.text.toString(),
-                    surname.text.toString(),
+                signUp(name.text.toString() + " ${surname.text.toString()}",
                     phone.text.toString(),
                     email.text.toString(),
                     password.text.toString())
@@ -84,7 +83,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUp(name: String,
-                       surname: String,
                        phone: String,
                        email: String,
                        password: String) {
@@ -98,12 +96,12 @@ class SignUpActivity : AppCompatActivity() {
                         Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
                     }
                     val profileUpdates = userProfileChangeRequest {
-                        displayName = "$name $surname"
+                        displayName = name
                         //photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
                     }
 
                     task.result.user?.updateProfile(profileUpdates)
-                    saveUserData(name, surname, phone, email)
+                    saveUserData(name, phone, email, task.result.user?.photoUrl.toString())
                     startActivity(Intent(this, SignInActivity::class.java))
                     finish()
                 } else {
@@ -116,12 +114,12 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun saveUserData(
         name: String,
-        surname: String,
         phone: String,
-        email: String
+        email: String,
+        thumbnail: String
     ) {
         val ubicacion = Ubicacion(0.0, 0.0)
-        val usuario = Usuario(name, surname, phone, email, ubicacion)
+        val usuario = Usuario(name, phone, email, ubicacion)
         val myRef = Firebase.database.getReference("/")
         myRef.child("Usuarios").push().setValue(usuario)
             .addOnFailureListener {

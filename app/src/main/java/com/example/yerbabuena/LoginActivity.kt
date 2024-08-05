@@ -78,8 +78,8 @@ class LoginActivity : AppCompatActivity() {
             )
         }
         gButton.setOnClickListener{
-            //signIn()
-            oneTapSignIn()
+            signIn()
+            //oneTapSignIn()
         }
         signin.setOnClickListener {
             startActivity(Intent(applicationContext, SignInActivity::class.java))
@@ -98,9 +98,9 @@ class LoginActivity : AppCompatActivity() {
             var usuario = it.getValue<Usuario>()
             if (usuario == null) usuario = Usuario()
             usuario.name = userInfo.displayName
-            usuario.surname = ""
             usuario.email = userInfo.email
             usuario.phone = userInfo.phoneNumber
+            usuario.thumbnail = userInfo.photoUrl.toString()
             ref.setValue(usuario)
         }
     }
@@ -161,18 +161,19 @@ class LoginActivity : AppCompatActivity() {
             .setServerClientId(getString(R.string.web_client_id))
             .build()
 
+        oneTapClient = Identity.getSignInClient(this)
         oneTapClient.getSignInIntent(signInRequest)
             .addOnSuccessListener { pendingIntent ->
                 launchSignIn(pendingIntent)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "1 Google Sign-in failed $e", Toast.LENGTH_SHORT).show()
+                oneTapSignIn()
             }
     }
 
     private fun oneTapSignUp()
     {
-        oneTapClient = Identity.getSignInClient(this)
         signUpRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
                 BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
@@ -183,6 +184,8 @@ class LoginActivity : AppCompatActivity() {
                     .setFilterByAuthorizedAccounts(false)
                     .build())
             .build()
+
+        oneTapClient = Identity.getSignInClient(this)
         oneTapClient.beginSignIn(signUpRequest)
             .addOnSuccessListener(this) { result ->
                 try {
@@ -199,9 +202,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun oneTapSignIn() {
-        // Configure One Tap UI
-        oneTapClient = Identity.getSignInClient(this)
-
         signInRequest = BeginSignInRequest.builder()
             .setPasswordRequestOptions(BeginSignInRequest.PasswordRequestOptions.builder()
                 .setSupported(true)
@@ -219,9 +219,14 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         // Display the One Tap UI
+        oneTapClient = Identity.getSignInClient(this)
         oneTapClient.beginSignIn(signInRequest)
             .addOnSuccessListener { result ->
-                launchSignIn(result.pendingIntent)
+                try {
+                    launchSignIn(result.pendingIntent)
+                } catch (e: IntentSender.SendIntentException) {
+                    Toast.makeText(this, "Couldn't start One Tap UI: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                }
             }
             .addOnFailureListener { _ ->
                 // No saved credentials found. Launch the One Tap sign-up flow, or

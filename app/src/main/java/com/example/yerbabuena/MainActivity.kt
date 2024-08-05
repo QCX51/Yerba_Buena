@@ -3,15 +3,12 @@ package com.example.yerbabuena
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -27,8 +24,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var drawerLayout: DrawerLayout
 
@@ -42,17 +39,41 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
     }
 
-    private fun switchNavMenu(menuId: Int, role: String?, name: String?)
+    private fun switchNavMenu(user:Usuario)
     {
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-        navigationView.inflateMenu(menuId)
-        val view = navigationView.inflateHeaderView(R.layout.main_nav_header)
-        val headerTitle = view.findViewById<TextView>(R.id.header_title)
-        val headerSubtitle = view.findViewById<TextView>(R.id.header_subtitle)
-
+        val username = user.name?.replaceAfter(" ", "")
+        var headerTitle: TextView
+        var headerSubtitle: TextView
         // Modifica el titulo y subtitulo del encabezado segun el role correspodiente
-        headerTitle.text = role
-        headerSubtitle.text = name?.replaceAfter(" ", "")
+        when (user.role) {
+            0-> { // Administrator
+                navigationView.inflateMenu(R.menu.administrador_navigation_drawer)
+                val headerView = navigationView.inflateHeaderView(R.layout.main_nav_header)
+                headerTitle = headerView.findViewById(R.id.header_title)
+                headerTitle.text = "Administrador"
+                headerSubtitle = headerView.findViewById(R.id.header_subtitle)
+                headerSubtitle.text = username
+                navigationView.setCheckedItem(R.id.admin_products)
+                switchFragment(ProductosFragment(), "Productos")
+            }
+            1-> { // Deliveryman
+                navigationView.inflateMenu(R.menu.repartidor_navigation_drawer)
+                val headerView = navigationView.inflateHeaderView(R.layout.main_nav_header)
+                headerTitle = headerView.findViewById(R.id.header_title)
+                headerTitle.text = "Repartidor"
+                headerSubtitle = headerView.findViewById(R.id.header_subtitle)
+                headerSubtitle.text = username
+                navigationView.setCheckedItem(R.id.orderlist)
+                switchFragment(PedidosListFragment(), "Pedidos")
+            }
+            2-> { // Customer
+                navigationView.inflateMenu(R.menu.client_navigation_drawer)
+                navigationView.inflateHeaderView(R.layout.nav_header)
+                navigationView.setCheckedItem(R.id.home)
+                switchFragment(MenuFragment(), "Menu")
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,50 +86,17 @@ class MainActivity : AppCompatActivity() {
         firebaseAppCheck.installAppCheckProviderFactory(
             DebugAppCheckProviderFactory.getInstance()
         )
-
         val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-
-        /*
         // Limpia el menu de navegacion actual
         navigationView.menu.clear()
         // Remueve el encabezado del menu de navegacion
         navigationView.removeHeaderView(navigationView.getHeaderView(0))
 
-        var ref = Firebase.database.getReference("/Usuarios/Administradores")
-        ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
-            var usuario = it.getValue<Usuario>()
-            if (usuario != null) {
-                switchNavMenu(R.menu.administrador_navigation_drawer, "Administrador", usuario.name)
-            }
-            else {
-                ref = Firebase.database.getReference("/Usuarios/Personal")
-                ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
-                    var usuario = it.getValue<Usuario>()
-                    if (usuario != null) {
-                        switchNavMenu(R.menu.repartidor_navigation_drawer, "Repartidor", usuario.name)
-                    }
-                }
-            }
+        val ref = Firebase.database.getReference("Usuarios")
+            .child(Firebase.auth.currentUser?.uid!!)
+        ref.get().addOnSuccessListener {
+            switchNavMenu(it.getValue<Usuario>()!!)
         }
-
-        ref = Firebase.database.getReference("/Usuarios/Clientes")
-        ref.child(Firebase.auth.currentUser!!.uid).get().addOnSuccessListener {
-            var usuario = it.getValue<Usuario>()
-            if (usuario != null) {
-                navigationView.inflateMenu(R.menu.client_navigation_drawer)
-                val view = navigationView.inflateHeaderView(R.layout.nav_header)
-            }
-        }*/
-
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.home_content, MapsFragment(), "MAPS")
-            .commit()
-
-        //val menuitem: MenuItem? = navigationView.checkedItem
-        //if (menuitem != null) navigationView.menu[0].title = menuitem.title
-        //navigationView.setCheckedItem(R.id.home)
 
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -117,26 +105,31 @@ class MainActivity : AppCompatActivity() {
                  */
                 R.id.home -> {
                     switchFragment(HomeFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.menu -> {
                     switchFragment(MenuFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.promotions -> {
                     switchFragment(PromocionesFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.orders -> {
-                    switchFragment(PedidosFragment())
+                    switchFragment(PedidosFragment(), "PedidosFragment")
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.notifications -> {
                     switchFragment(NotificacionesFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
@@ -145,21 +138,25 @@ class MainActivity : AppCompatActivity() {
                  */
                 R.id.admin_products -> {
                     switchFragment(ProductosFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.admin_employers -> {
                     switchFragment(PersonalFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.admin_clients -> {
                     switchFragment(ClientesFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.admin_reports -> {
                     switchFragment(ReportesFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
@@ -168,11 +165,13 @@ class MainActivity : AppCompatActivity() {
                  */
                 R.id.orderlist -> {
                     switchFragment(PedidosListFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
                 R.id.location -> {
                     switchFragment(UbicacionFragment())
+                    onBackPressed()
                     title = it.title
                     true
                 }
@@ -192,14 +191,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun switchFragment(fragment: Fragment)
+    private fun switchFragment(fragment: Fragment, tag: String? = null)
     {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.home_content, fragment)
+            .replace(R.id.home_content, fragment, tag)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
-        onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean
@@ -229,10 +227,5 @@ class MainActivity : AppCompatActivity() {
             true -> { drawerLayout.closeDrawer(GravityCompat.START)}
             false -> { super.onBackPressed() }
         }
-        /*val mapFragment:Fragment? = supportFragmentManager.findFragmentByTag("MAP")
-        if (mapFragment != null && mapFragment.isVisible)
-        {
-            supportFragmentManager.beginTransaction().remove(mapFragment).commitAllowingStateLoss()
-        }*/
     }
 }
